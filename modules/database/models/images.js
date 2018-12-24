@@ -9,7 +9,7 @@ let ImageSchema = new mongoose.Schema(
         url:{type:String},
         code:{type:String},
         expiry:{type:Date},
-        
+
         type:{type:String,
         enum:[IMAGE_TYPE.DONATION,IMAGE_TYPE.OFFER],
         required:true},
@@ -23,5 +23,5 @@ let ImageSchema = new mongoose.Schema(
     }
 );
 
-ImageSchema.index({_id: -1});
+ImageSchema.index({created_at: -1});
 module.exports = mongoose.model('Image', ImageSchema);

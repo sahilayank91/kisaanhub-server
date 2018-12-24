@@ -20,6 +20,7 @@ var OrderSchema = new mongoose.Schema({
     customerId: {type: String, ref: 'User'},
     pickup_otp:{type:String},
     delivered_otp:{type:String},
+    image_url:{type:String},
     status:{type:String,enum:[STATUS.RECIEVED,STATUS.COMPLETED,STATUS.DELIVERED,STATUS.CANCELLED,STATUS.PICKED],required:true},
     minimize: false,
 

@@ -1,6 +1,4 @@
 let Order = require(__BASE__ + 'modules/database/models/order');
-let Offer_User = require(__BASE__ + 'modules/database/models/relations/offer_user');
-let Image = require(__BASE__ + 'modules/database/models/images');
 let customUUID = require(__BASE__ + "modules/utils/CustomUUID");
 let Promise = require('bluebird');
 
@@ -12,36 +10,23 @@ let getCreateTemplate = function (parameters) {
         switch (key) {
             case '_id':
             case 'phone':
-            case 'upper':
-            case 'bottom':
-            case 'woollen':
-            case 'jacket':
-            case 'blanket_single':
-            case 'blanket_double':
-            case 'bedsheet_single':
-            case 'bedsheet_double':
             case 'permanent_address':
             case 'status':
             case 'address':
             case 'pickup_date':
-            case 'local_address':
-            case 'service':
             case 'order':
             case 'latitude':
             case 'longitude':
-            case 'washerman_id':
-            case 'userid':
+            case 'customerId':
             case 'total':
             case 'pickup_otp':
             case 'delivered_otp':
             case 'type':
             case 'email':
-            case 'offer':
-            case 'code':
-            case 'offerid':
             case 'day':
             case 'month':
             case 'year':
+            case 'image_url':
                 template[key] = parameters[key];
                 break;
         }
@@ -147,37 +132,6 @@ let createOffer = function(parameters){
     });
 };
 
-let createDonation = function(parameters){
-    return new Promise(function(resolve, reject) {
-        let template = getImageCreateTemplate(parameters);
-        /*Store the user using the template*/
-        let offer = new Image(template);
-        offer.save(function(err, data) {
-            if (!err) {
-                resolve(data);
-            } else {
-                console.log(err);
-                reject(new Error('createDonation failed'));
-            }
-        });
-    });
-};
-
-let createUserOfferRelation = function(parameters){
-    return new Promise(function(resolve, reject) {
-        let template = getOfferUserRelationCreateTemplate(parameters);
-        /*Store the user using the template*/
-        let offer = new Offer_User(template);
-        offer.save(function(err, data) {
-            if (!err) {
-                resolve(data);
-            } else {
-                console.log(err);
-                reject(new Error('createOrder failed'));
-            }
-        });
-    });
-};
 let getOrder = function (rule, fields, options) {
     return new Promise(function (resolve, reject) {
         Order.find(rule, fields, options).exec(function (err, data) {
@@ -218,7 +172,7 @@ let deleteOrder = function(rule,fields,options){
 
 let updateOrder = function(rule,fields,options){
     return new Promise(function(resolve,reject){
-        Order.findOneAndUpdate(rule,fields, {upsert: true}).exec(function(err,data){
+        Order.findOneAndUpdate(rule,{$set:fields}, {upsert: true}).exec(function(err,data){
             if(!err){
                 resolve(data);
             }else{
@@ -247,7 +201,7 @@ let getOrderByUserId = function(rule,fields,options){
         Order.find(rule,fields,options)
             .populate([
             {
-                path: "userid",
+                path: "customerId",
                 select: '_id firstname lastname address flataddress city phone pincode latitude longitude'
             }
         ]).exec(function(err,data){
@@ -303,42 +257,6 @@ let getOrderByDate = function(rule,fields,options){
 
 
 
-let checkIfUserHasUsedCoupon = function(rule,fields,options){
-    return new Promise(function(resolve,reject){
-        Offer_User.find(rule,fields,options).exec(function(err,data){
-            if(!err){
-                resolve(data);
-            }else{
-                reject(new Error("Failed to get relation"));
-            }
-        });
-    });
-};
-
-let getOffer = function(rule,fields,options){
-    return new Promise(function(resolve,reject){
-        Image.find(rule,fields,options).exec(function(err,data){
-            if(!err){
-                resolve(data);
-            }else{
-                reject(new Error("Failed to get Offer"));
-            }
-        });
-    });
-};
-
-let getImages= function(rule,fields,options){
-    return new Promise(function(resolve,reject){
-        Image.find(rule,fields,options).exec(function(err,data){
-            if(!err){
-                resolve(data);
-            }else{
-                reject(new Error("Failed to get Offer"));
-            }
-        });
-    });
-};
-
 
 module.exports = {
     createOrder: createOrder,
@@ -350,10 +268,5 @@ module.exports = {
     cancelOrder:cancelOrder,
     getOrderByDate:getOrderByDate,
     addWasherman:addWasherman,
-    checkIfUserHasUsedCoupon:checkIfUserHasUsedCoupon,
     createOffer:createOffer,
-    getOffer:getOffer,
-    createDonation:createDonation,
-    getImages:getImages,
-    createUserOfferRelation:createUserOfferRelation
 };

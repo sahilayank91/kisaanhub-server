@@ -10,6 +10,9 @@ router.post('/newOrder',function(req,res) {
 
     };
 
+    if(req.body.type){
+        parameters.type = req.body.type;
+    }
     if(req.body.name){
       parameters.name = req.body.name
     }
@@ -28,16 +31,21 @@ router.post('/newOrder',function(req,res) {
     if(req.body.status){
         parameters.status = req.body.status
     }
+    if(req.body.order){
+        parameters.order = req.body.order;
+    }
+
     OrderController.newOrder(parameters)
         .then(function (data) {
             if (data) {
-                console.log(data);
+                console.log("new order",data);
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {
                 RESPONSE.sendOkay(res, {success: false,data:data});
                 return false;
             }
+
 
 
         });
@@ -105,15 +113,11 @@ router.post('/getTodayOrders',function(req,res) {
 router.post('/getUpcomingOrders',function(req,res) {
     let parameters = {
         sellerId:req.body.sellerId,
-        pickup_date: { $gte: new Date().setHours(22,0,0,) },
         status:'Recieved'
     };
     OrderController.getOrderByDate(parameters)
         .then(function (data) {
             if (data) {
-                console.log("upcoming",data);
-
-                data = data.reverse();
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {
@@ -123,15 +127,14 @@ router.post('/getUpcomingOrders',function(req,res) {
         });
 });
 
-router.post('/getCompletedOrders',function(req,res) {
+router.post('/getConfirmedOrders',function(req,res) {
     let parameters = {
         sellerId:req.body.sellerId,
-        status:'Delivered'
+        status:'Confirmed'
     };
-    OrderController.getOrderByUserId(parameters)
+    OrderController.getOrderByDate(parameters)
         .then(function (data) {
             if (data) {
-                console.log(data);
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {
@@ -179,6 +182,36 @@ router.post('/updateOrder',function(req,res) {
 });
 
 
+router.post('/confirmOrder',function(req,res) {
+    let parameters = {
+        _id:req.body._id,
+    };
+
+    var template={};
+    if(req.body.comment){
+        template.comment = req.body.comment;
+    }
+    if(req.body.total){
+        template.total = req.body.total;
+    }
+    if(req.body.status){
+        template.status = req.body.status;
+    }
+    OrderController.updateOrder(parameters,template)
+        .then(function (data) {
+            if (data) {
+                RESPONSE.sendOkay(res, {success: true,data:data});
+                return true;
+            } else {
+                console.log("Some error occured while getting order from the database");
+                return false;
+            }
+
+
+        });
+});
+
+
 
 router.post('/addSeller',function(req,res) {
     let parameters = {
@@ -189,6 +222,7 @@ router.post('/addSeller',function(req,res) {
     if(req.body.sellerId){
         template.sellerId = req.body.sellerId;
     }
+    console.log("template:" , template);
 
     OrderController.updateOrder(parameters,template)
         .then(function (data) {

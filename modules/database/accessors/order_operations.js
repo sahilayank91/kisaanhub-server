@@ -19,14 +19,14 @@ let getCreateTemplate = function (parameters) {
             case 'longitude':
             case 'customerId':
             case 'total':
-            case 'pickup_otp':
             case 'delivered_otp':
-            case 'type':
             case 'email':
             case 'day':
             case 'month':
+            case 'type':
             case 'year':
             case 'image_url':
+            case 'comment':
                 template[key] = parameters[key];
                 break;
         }
@@ -77,28 +77,7 @@ let getImageCreateTemplate = function (parameters) {
     return template;
 };
 
-let getOfferUserRelationCreateTemplate = function (parameters) {
 
-    let template = {}
-    for (let key in parameters) {
-        switch (key) {
-            case '_id':
-            case 'offerid':
-            case 'user':
-                template[key] = parameters[key];
-                break;
-        }
-    }
-
-
-    template.created_at = new Date();
-
-    if (!template._id) {
-        template._id = customUUID.getRandomString(6);
-    }
-
-    return template;
-};
 let createOrder = function (parameters) {
     return new Promise(function(resolve, reject) {
         let template = getCreateTemplate(parameters);
@@ -241,8 +220,12 @@ let getOrderByDate = function(rule,fields,options){
         Order.find(rule,fields,options)
             .populate([
                 {
-                    path: "userid",
-                    select: '_id firstname lastname address flataddress city phone pincode latitude longitude'
+                    path: "customerId",
+                    select: '_id firstname lastname address flataddress city phone pincode'
+                },
+                {
+                    path: "sellerId",
+                    select: '_id firstname lastname address flataddress city phone pincode'
                 }
             ])
             .exec(function(err,data){

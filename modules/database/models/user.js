@@ -17,7 +17,7 @@ var UserSchema = new mongoose.Schema({
 	dob:{type:Date},
     role:{
         type:String,
-        enum:[ROLES.CUSTOMER,ROLES.WASHER,ROLES.AGENT],
+        enum:[ROLES.CUSTOMER,ROLES.SELLER,ROLES.AGENT],
     },
     password: {type: String, required: false},
 	gender: {

@@ -16,5 +16,5 @@ var NotificationSchema = new mongoose.Schema(
     }
 );
 
-NotificationSchema.index({post: 1, _id: -1});
+NotificationSchema.index({post: 1, create_time:-1});
 module.exports = mongoose.model('Notification', NotificationSchema);

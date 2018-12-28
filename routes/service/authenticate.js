@@ -151,11 +151,11 @@ router.post('/register',function(req,res) {
     UserController.registerUser(parameters)
         .then(function (data) {
             if (data) {
+                console.log(data);
                 RESPONSE.sendOkay(res, {success: true,data:data});
-                // RESPONSE.sendOkay(res, parameters);
                 return true;
             } else {
-                console.log("Some error occured while getting data from the database");
+                RESPONSE.sendError(res,{success:false,data:"Email Already exist"});
                 return false;
             }
 

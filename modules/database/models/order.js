@@ -11,7 +11,6 @@ var TYPE = ENUMS.type;
 
 var OrderSchema = new mongoose.Schema({
     _id: String,
-
     name:{type:String},
     quantity:{type:String},
     brand:{type:String},
@@ -24,7 +23,12 @@ var OrderSchema = new mongoose.Schema({
     image_url:{type:String},
     comment:{type:String},
     type:{type:String},
+    total:{type:String},
     order:{type:String},
+    latitude:{type:String},
+    longitude:{type:String},
+    locality:{type:String},
+    time:{type:String,enum:['Morning','Afternoon','Evening']},
     status:{type:String,enum:[STATUS.RECIEVED,STATUS.COMPLETED,STATUS.DELIVERED,STATUS.CANCELLED,STATUS.PICKED],required:true},
     minimize: false,
 

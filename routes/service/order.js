@@ -26,7 +26,7 @@ router.post('/newOrder',function(req,res) {
         parameters.quantity = req.body.unit
     }
     if(req.body.image_url){
-        parameters.quantity = req.body.image_url
+        parameters.image_url = req.body.image_url
     }
     if(req.body.status){
         parameters.status = req.body.status
@@ -38,7 +38,6 @@ router.post('/newOrder',function(req,res) {
     OrderController.newOrder(parameters)
         .then(function (data) {
             if (data) {
-                console.log("new order",data);
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {
@@ -76,6 +75,7 @@ router.post('/getOrderByUserId',function(req,res) {
         .then(function (data) {
             if (data) {
                 data = data.reverse();
+                console.log(data);
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 // RESPONSE.sendOkay(res, parameters);
                 return true;
@@ -99,8 +99,6 @@ router.post('/getTodayOrders',function(req,res) {
     OrderController.getOrderByDate(parameters)
         .then(function (data) {
             if (data) {
-                console.log("today",data);
-                data = data.reverse();
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {
@@ -144,15 +142,14 @@ router.post('/getConfirmedOrders',function(req,res) {
         });
 });
 
-router.post('/getPickedOrders',function(req,res) {
+router.post('/getProcessedOrders',function(req,res) {
     let parameters = {
         sellerId:req.body.sellerId,
-        status:'Picked'
+        status:'Processed'
     };
-    OrderController.getOrderByUserId(parameters)
+    OrderController.getOrderByDate(parameters)
         .then(function (data) {
             if (data) {
-                console.log(data);
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {
@@ -197,6 +194,8 @@ router.post('/confirmOrder',function(req,res) {
     if(req.body.status){
         template.status = req.body.status;
     }
+
+    console.log(template);
     OrderController.updateOrder(parameters,template)
         .then(function (data) {
             if (data) {
@@ -238,6 +237,42 @@ router.post('/addSeller',function(req,res) {
         });
 });
 
+
+router.post('/processOrder',function(req,res) {
+    let parameters = {
+        _id:req.body._id,
+    };
+
+    var template = {};
+    if(req.body.latitude){
+        template.latitude = req.body.latitude;
+    }
+    if(req.body.longitude){
+        template.longitude = req.body.longitude;
+    }
+    if(req.body.locality){
+        template.locality = req.body.locality;
+    }
+    if(req.body.status){
+        template.status = req.body.status;
+    }
+    if(req.body.time){
+        template.time = req.body.time;
+    }
+
+    OrderController.updateOrder(parameters,template)
+        .then(function (data) {
+            if (data) {
+                RESPONSE.sendOkay(res, {success: true,data:data});
+                return true;
+            } else {
+                console.log("Some error occured while getting order from the database");
+                return false;
+            }
+
+
+        });
+});
 router.post('/refuseOrder',function(req,res) {
     let parameters = {
         _id:req.body._id,
@@ -421,7 +456,6 @@ router.post('/getImages',function (req,res) {
     OrderController.getImages(parameters)
         .then(function(data){
             if (data) {
-                console.log(data);
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {
@@ -431,6 +465,7 @@ router.post('/getImages',function (req,res) {
         })
 
 });
+
 router.post('/checkIfUserHasUsedCoupon',function (req,res) {
    let parameters = {
         user:req.body.user,
@@ -448,8 +483,7 @@ router.post('/checkIfUserHasUsedCoupon',function (req,res) {
                 return true;
             }
        })
-
-
-
 });
+
+
 module.exports = router;

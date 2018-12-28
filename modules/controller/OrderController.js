@@ -127,7 +127,7 @@ let verifyDelivery = function(parameters){
     return orderOperations.getOrder(parameters)
         .then(function(data){
             if(data){
-                return updateOrder(parameters,{status:"Delivered"});
+                return updateOrder(parameters,{status:"Completed"});
             }else{
                 throw new Error('Cant create user with the given credentials');
             }

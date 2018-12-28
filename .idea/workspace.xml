@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8903bf3a-0db2-4f79-981e-d35387253bda" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/database/accessors/order_operations.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/database/accessors/order_operations.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/database/models/images.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/database/models/notification.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/database/models/notification.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/database/models/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/database/models/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/database/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/database/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/service/authenticate.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/service/authenticate.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/service/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/service/order.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -44,8 +39,8 @@
       <file leaf-file-name="order.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/service/order.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="132" column="26" lean-forward="true" selection-start-line="132" selection-start-column="26" selection-end-line="132" selection-end-column="26" />
+            <state relative-caret-position="298">
+              <caret line="296" column="20" selection-start-line="296" selection-start-column="14" selection-end-line="296" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -63,7 +58,7 @@
         <entry file="file://$PROJECT_DIR$/modules/database/models/notification.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -71,8 +66,8 @@
       <file leaf-file-name="order_operations.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/database/accessors/order_operations.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4464">
-              <caret line="248" column="12" selection-start-line="248" selection-start-column="12" selection-end-line="248" selection-end-column="12" />
+            <state relative-caret-position="756">
+              <caret line="186" column="35" selection-start-line="186" selection-start-column="35" selection-end-line="186" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -80,8 +75,8 @@
       <file leaf-file-name="order.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/database/models/order.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
+            <state relative-caret-position="540">
+              <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -90,7 +85,7 @@
         <entry file="file://$PROJECT_DIR$/modules/database/models/user.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="342">
-              <caret line="19" column="55" lean-forward="true" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
+              <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -129,6 +124,7 @@
       <find>Order</find>
       <find>washer</find>
       <find>add</find>
+      <find>confirm</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -309,12 +305,12 @@
       <workItem from="1545598892330" duration="596000" />
       <workItem from="1545630390638" duration="3163000" />
       <workItem from="1545645213353" duration="5342000" />
-      <workItem from="1545896787316" duration="9824000" />
+      <workItem from="1545896787316" duration="15825000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35437000" />
+    <option name="totallyTimeSpent" value="41438000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
@@ -651,14 +647,14 @@
     <entry file="file://$PROJECT_DIR$/modules/database/models/notification.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/database/models/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
-          <caret line="19" column="55" lean-forward="true" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
+          <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -685,22 +681,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/database/accessors/order_operations.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4464">
-          <caret line="248" column="12" selection-start-line="248" selection-start-column="12" selection-end-line="248" selection-end-column="12" />
+        <state relative-caret-position="756">
+          <caret line="186" column="35" selection-start-line="186" selection-start-column="35" selection-end-line="186" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/database/models/order.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
+        <state relative-caret-position="540">
+          <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/service/order.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="132" column="26" lean-forward="true" selection-start-line="132" selection-start-column="26" selection-end-line="132" selection-end-column="26" />
+        <state relative-caret-position="298">
+          <caret line="296" column="20" selection-start-line="296" selection-start-column="14" selection-end-line="296" selection-end-column="20" />
         </state>
       </provider>
     </entry>

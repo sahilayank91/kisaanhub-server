@@ -31,11 +31,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 /****************************************************/
 /*************** Database Connection ****************/
 /****************************************************/
-const dbUrl =
-    process.env.MONGO_URL ||
-    `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASS}/${
-        process.env.MONGO_DB
-        }`
+
+const dbUrl = "mongodb://localhost:27017/kisaanhub";
+// const dbUrl =
+//     process.env.MONGO_URL ||
+//     `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASS}/${
+//         process.env.MONGO_DB_NAME
+//         }`
 mongoose.connect(
     dbUrl,
     function(err) {

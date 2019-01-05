@@ -70,14 +70,13 @@ router.post('/getOrder',function(req,res) {
 router.post('/getOrderByUserId',function(req,res) {
     let parameters = {
         customerId:req.body.customerId,
+        status: { $ne: "Processed" }
     };
     OrderController.getOrderByUserId(parameters)
         .then(function (data) {
             if (data) {
                 data = data.reverse();
-                console.log(data);
                 RESPONSE.sendOkay(res, {success: true,data:data});
-                // RESPONSE.sendOkay(res, parameters);
                 return true;
             } else {
                 console.log("Some error occured while getting order from the database");

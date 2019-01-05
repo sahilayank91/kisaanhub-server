@@ -65,7 +65,7 @@ const SERVICE_authenticate = require(__BASE__ + "routes/service/authenticate");
 const SERVICE_order = require(__BASE__ + "routes/service/order");
 const SERVICE_feedback = require(__BASE__ + "routes/service/feedback");
 const SERVICE_product = require(__BASE__ + "routes/service/product");
-
+const SERVICE_payment = require(__BASE__ + "routes/service/payment");
 /****************************************************/
 /****************** Routes Mapping ******************/
 /****************************************************/
@@ -74,6 +74,7 @@ app.use('/service/authenticate', SERVICE_authenticate);
 app.use('/service/order', SERVICE_order);
 app.use('/service/feedback',SERVICE_feedback);
 app.use('/service/product',SERVICE_product);
+app.use('/service/payment', SERVICE_payment);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -5,11 +5,8 @@ let ENUMS = require(__BASE__ + "config/enums");
 let OfferSchema = new mongoose.Schema(
     {
         _id:{type:String},
-        percentage:{type:String},
         url:{type:String},
-        code:{type:String},
-        expiry:{type:Date},
-        service:{type:String},
+        type:{type:String, default:'Offer'},
         created_at:{type:Date,default:new Date()}
 
     },

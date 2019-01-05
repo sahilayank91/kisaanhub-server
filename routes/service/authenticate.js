@@ -19,10 +19,10 @@ const bcrypt = require('bcrypt');
 router.post('/login', function(req, res) {
 
     let userPass = req.body.password;
-
     // let userEmail = req.body.email;
-
     let userPhone = req.body.phone;
+
+
     if ((!DataValidator.isValidPhone(userPhone))  && !DataValidator.isValidPassword(userPass)){
 
         console.log("User input is not correct");

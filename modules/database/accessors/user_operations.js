@@ -78,8 +78,9 @@ let createUser = function (parameters) {
 
 let getUsers = function (rule, fields, options) {
     return new Promise(function (resolve, reject) {
-        User.find({email:rule.email}, fields, options).exec(function (err, data) {
+        User.find({phone:rule.phone}, fields, options).exec(function (err, data) {
             if (!err) {
+                console.log(data);
                 if(bcrypt.compareSync(rule.password, data[0].password)===true){
                     resolve(data);
                 } else{

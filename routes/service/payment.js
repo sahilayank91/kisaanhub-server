@@ -26,19 +26,24 @@ router.post('/createPaymentRequest', function(req, res) {
         payload.buyer_name = req.body.buyer_name;
     }
 
-    if(payload.redirect_url){
+    if(req.body.redirect_url){
         payload.redirect_url = req.body.redirect_url
     }
 
-    if(payload.email){
+    if(req.body.email){
         payload.email = req.body.email
     }
+    console.log("payload: ",payload);
 
     PaymentController.createPaymentRequest(payload)
         .then(function (data) {
-            console.log(data);
             if (data) {
-                console.log("In router:",data);
+
+
+
+                data = data.replace(/(\r\n|\n|\r)/gm," ");
+                console.log(data);
+
                 RESPONSE.sendOkay(res, data);
             } else {
                 console.log("Some error occured while getting data from the database");

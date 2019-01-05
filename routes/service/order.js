@@ -158,11 +158,26 @@ router.post('/getProcessedOrders',function(req,res) {
         });
 });
 
+router.post('/getCompletedOrders',function(req,res) {
+    let parameters = {
+        customerId:req.body.customerId,
+        status:'Processed'
+    };
+    OrderController.getOrderByDate(parameters)
+        .then(function (data) {
+            if (data) {
+                RESPONSE.sendOkay(res, {success: true,data:data});
+                return true;
+            } else {
+                console.log("Some error occured while getting order from the database");
+                return false;
+            }
+        });
+});
 router.post('/updateOrder',function(req,res) {
     let parameters = {
         _id:req.body._id,
     };
-
     OrderController.updateOrder(parameters)
         .then(function (data) {
             if (data) {
@@ -177,6 +192,25 @@ router.post('/updateOrder',function(req,res) {
         });
 });
 
+
+router.post('/addRating',function(req,res){
+    let parameters={};
+    parameters._id = req.body._id;
+    // if(req.body.rating){
+    //     parameters.rating = req.body.rating;
+    // }
+    //
+
+    let template = {$set:{rating:req.body.rating}};
+    OrderController.addRating(parameters,template)
+        .then(function(data){
+            if(data){
+                RESPONSE.sendOkay(res,{success:true,data:data});
+            }else{
+                RESPONSE.sendError(res,{success:false});
+            }
+        })
+});
 
 router.post('/confirmOrder',function(req,res) {
     let parameters = {
@@ -370,10 +404,6 @@ router.post('/createOffer',function (req,res) {
 
     let parameters = {
         url:req.body.url,
-        service:req.body.service,
-        code:req.body.code,
-        percentage:req.body.percentage,
-        type:req.body.type
     };
 
     OrderController.createOffer(parameters)

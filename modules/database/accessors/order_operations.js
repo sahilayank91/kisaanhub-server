@@ -1,4 +1,7 @@
 let Order = require(__BASE__ + 'modules/database/models/order');
+let Offer = require(__BASE__ + 'modules/database/models/offer');
+
+
 let customUUID = require(__BASE__ + "modules/utils/CustomUUID");
 let Promise = require('bluebird');
 
@@ -50,18 +53,13 @@ let getCreateTemplate = function (parameters) {
     return template;
 };
 
-let getImageCreateTemplate = function (parameters) {
+let getOfferCreateTemplate = function (parameters) {
 
     let template = {}
     for (let key in parameters) {
         switch (key) {
             case '_id':
-            case 'percentage':
-            case 'offer':
             case 'url':
-            case 'code':
-            case 'service':
-            case 'type':
                 template[key] = parameters[key];
                 break;
         }
@@ -97,9 +95,8 @@ let createOrder = function (parameters) {
 
 let createOffer = function(parameters){
     return new Promise(function(resolve, reject) {
-        let template = getImageCreateTemplate(parameters);
-        /*Store the user using the template*/
-        let offer = new Image(template);
+        let template = getOfferCreateTemplate(parameters);
+        let offer = new Offer(template);
         offer.save(function(err, data) {
             if (!err) {
                 resolve(data);
@@ -242,8 +239,30 @@ let getOrderByDate = function(rule,fields,options){
     });
 };
 
+let getOffer = function(rule,fields,options){
+    return new Promise(function(resolve,reject){
+        Offer.find(rule,fields,options).exec(function(err,data){
+            if(!err){
+                resolve(data);
+            }else{
+                reject(new Error("Failed to get Offer by Id"));
+            }
+        });
+    });
+};
 
 
+let addRating = function(rule,fields,options){
+    return new Promise(function(resolve,reject){
+        Order.findOneAndUpdate(rule,fields,options).exec(function(err,data){
+            if(!err){
+                resolve(data);
+            }else{
+                reject(new Error("Failed to add Rating by Id"));
+            }
+        });
+    });
+};
 
 module.exports = {
     createOrder: createOrder,
@@ -256,4 +275,6 @@ module.exports = {
     getOrderByDate:getOrderByDate,
     addWasherman:addWasherman,
     createOffer:createOffer,
+    getOffer:getOffer,
+    addRating:addRating
 };

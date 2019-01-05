@@ -28,7 +28,8 @@ var OrderSchema = new mongoose.Schema({
     latitude:{type:String},
     longitude:{type:String},
     locality:{type:String},
-    time:{type:String,enum:['Morning','Afternoon','Evening']},
+    rating:{type:Number},
+    time:{type:String,enum:['Morning','Afternoon','Evening','Express']},
     status:{type:String,enum:[STATUS.RECIEVED,STATUS.COMPLETED,STATUS.DELIVERED,STATUS.CANCELLED,STATUS.PICKED],required:true},
     minimize: false,
 

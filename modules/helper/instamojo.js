@@ -2,6 +2,8 @@ let request= require('request');
 let Promise = require('bluebird');
 let API_KEY = 'b89ac8b2978fd72b07fe14c3a3ee7c9d';
 let AUTH_TOKEN = 'cfc4f6f965c8173793dbed98bcbfddcb';
+let Insta = require('instamojo-nodejs');
+Insta.setKeys(API_KEY, AUTH_TOKEN);
 
 let createPaymentRequest= function(parameters){
 
@@ -37,10 +39,10 @@ let createPaymentRequest= function(parameters){
             if(parameters.buyer_name){
                 payload.buyer_name = parameters.buyer_name;
             }
-            if(payload.redirect_url){
+            if(parameters.redirect_url){
                 payload.redirect_url = parameters.redirect_url
             }
-            if(payload.email){
+            if(parameters.email){
                 payload.email = parameters.email
             }
 
@@ -48,14 +50,18 @@ let createPaymentRequest= function(parameters){
             payload.send_sms = false;
             payload.allow_repeated_payments = false;
 
-            request.post('https://www.instamojo.com/api/1.1/payment-requests/', {form: payload,  headers: headers}, function(error, response, body){
-                if(!error && response.statusCode === 201){
-                    console.log(body);
-                    resolve(body);
-                }else{
+
+            Insta.createPayment(payload, function(error, response) {
+                if (error) {
+                    // some error
                     reject(error);
+                } else {
+                    // Payment redirection link at response.payment_request.longurl
+                    console.log(response);
+                    resolve(response);
                 }
-            })
+            });
+
     }).catch(function(err){
         console.log(err);
     })

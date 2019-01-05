@@ -1,7 +1,7 @@
 let userOperations = require(__BASE__+"modules/database/accessors/user_operations");
 
 let getUsers = function(parameters){
-    return userOperations.getUsers({email: parameters.useremail, password: parameters.userpass})
+    return userOperations.getUsers({phone: parameters.phone, password: parameters.userpass})
         .then(function(data){
             if(data){
                 return data;

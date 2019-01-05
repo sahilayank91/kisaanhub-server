@@ -277,6 +277,18 @@ let getImages = function(parameters){
             console.log("Error in createUser",error);
         })
 };
+let addRating = function(parameters,template){
+    return orderOperations.addRating(parameters,template)
+        .then(function(data){
+            if(data){
+                return data;
+            }else{
+                throw new Error('Cant create user with the given credentials');
+            }
+        }).catch(function(error){
+            console.log("Error in createUser",error);
+        })
+};
 
 module.exports = {
    newOrder:newOrder,
@@ -290,6 +302,7 @@ module.exports = {
     verifyDelivery:verifyDelivery,
     checkIfUserHasUsedCoupon:checkIfUserHasUsedCoupon,
     createOffer:createOffer,
+    addRating:addRating,
     getOffer:getOffer,
     createDonation:createDonation,
     getImages:getImages,

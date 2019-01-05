@@ -193,6 +193,8 @@ router.post('/updateOrder',function(req,res) {
 });
 
 
+
+
 router.post('/addRating',function(req,res){
     let parameters={};
     parameters._id = req.body._id;
@@ -513,6 +515,7 @@ router.post('/checkIfUserHasUsedCoupon',function (req,res) {
             }
        })
 });
+
 
 
 module.exports = router;

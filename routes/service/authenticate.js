@@ -150,6 +150,12 @@ router.post('/register',function(req,res) {
     if(req.body.userflataddress){
         parameters.flataddress  = req.body.userflataddress;
     }
+    if(req.body.ifsc){
+        parameters.ifsc = req.body.ifsc;
+    }
+    if(req.body.gst){
+        parameters.gst = req.body.gst;
+    }
     UserController.registerUser(parameters)
         .then(function (data) {
             if (data) {

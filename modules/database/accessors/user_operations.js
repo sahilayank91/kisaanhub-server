@@ -40,6 +40,7 @@ let getCreateTemplate = function (parameters) {
                     case 'day':
                     case 'month':
                     case 'year':
+                    case 'gst':
                 template[key] = parameters[key];
                 break;
         }

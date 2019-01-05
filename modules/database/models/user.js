@@ -42,6 +42,7 @@ var UserSchema = new mongoose.Schema({
     shop:{type:String},
     bankaccount:{type:String},
     ifsc:{type:String},
+    gst:{type:String},
     about: String,
     }, {
     minimize: false

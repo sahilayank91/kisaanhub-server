@@ -9,20 +9,6 @@ let createPaymentRequest= function(parameters){
 
     return new Promise(function(resolve, reject){
 
-
-            let headers = { 'X-Api-Key': API_KEY, 'X-Auth-Token': AUTH_TOKEN}
-            // let payload = {
-            //     purpose: 'FIFA 16',
-            //     amount: '2500',
-            //     phone: '9999999999',
-            //     buyer_name: 'John Doe',
-            //     redirect_url: 'http://www.example.com/redirect/',
-            //     send_email: true,
-            //     webhook: 'http://www.example.com/webhook/',
-            //     send_sms: false,
-            //     email: 'foo@example.com',
-            //     allow_repeated_payments: false}
-
             let payload = {};
             if(parameters.purpose){
                 payload.purpose = parameters.purpose;
@@ -49,7 +35,7 @@ let createPaymentRequest= function(parameters){
             payload.send_email = true;
             payload.send_sms = false;
             payload.allow_repeated_payments = false;
-
+            payload.redirect_url = 'http://172.21.4.98:3000/service/payment/approveRequest/';
 
             Insta.createPayment(payload, function(error, response) {
                 if (error) {

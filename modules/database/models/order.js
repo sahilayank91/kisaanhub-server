@@ -29,11 +29,12 @@ var OrderSchema = new mongoose.Schema({
     longitude:{type:String},
     locality:{type:String},
     rating:{type:Number},
+    updated_at:{type:Date, default: new Date()},
     time:{type:String,enum:['Morning','Afternoon','Evening','Express']},
     status:{type:String,enum:[STATUS.RECIEVED,STATUS.COMPLETED,STATUS.DELIVERED,STATUS.CANCELLED,STATUS.PICKED],required:true},
     minimize: false,
 
 });
-OrderSchema.index({created_at: -1});
+OrderSchema.index({updated_at: -1});
 
 module.exports = mongoose.model('Order', OrderSchema);

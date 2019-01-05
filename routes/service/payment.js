@@ -3,6 +3,7 @@ let router = express.Router();
 let RESPONSE = require(__BASE__ + "modules/controller/handler/ResponseHandler");
 let DataValidator = require(__BASE__ + "modules/utils/DataValidator");
 let PaymentController = require(__BASE__ + "modules/controller/PaymentController");
+let OrderController = require(__BASE__ + "modules/controller/OrderController");
 
 router.post('/createPaymentRequest', function(req, res) {
 
@@ -82,6 +83,30 @@ router.post('/getPaymentDetails',function(req,res){
                 RESPONSE.sendError(res,{success:false,data:data});
             }
         })
+
+});
+
+router.post('/approvePayment',function(req,res){
+    let parameters = {};
+
+    if(req.body.orderId){
+        parameters._id = req.body.orderId
+    }else{
+        RESPONSE.sendError(res,{success:false});
+    }
+    let template = {$set:{"status":"Processed"}}
+
+    OrderController.approvePayment(parameters,template)
+        .then(function(data){
+            if(data){
+                console.log(data);
+                RESPONSE.sendOkay(res,{success:true,data:data});
+            }else{
+                RESPONSE.sendError(res,{success:false});
+            }
+
+        })
+
 
 });
 

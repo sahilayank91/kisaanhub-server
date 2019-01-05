@@ -264,6 +264,19 @@ let addRating = function(rule,fields,options){
     });
 };
 
+let approvePayment = function(rule,fields,options){
+    return new Promise(function(resolve,reject){
+        Order.findOneAndUpdate(rule,fields,options).exec(function(err,data){
+            if(!err){
+                resolve(data);
+            }else{
+                reject(new Error("Failed to approve by Id"));
+            }
+        });
+    });
+};
+
+
 module.exports = {
     createOrder: createOrder,
     getOrder: getOrder,
@@ -276,5 +289,6 @@ module.exports = {
     addWasherman:addWasherman,
     createOffer:createOffer,
     getOffer:getOffer,
-    addRating:addRating
+    addRating:addRating,
+    approvePayment:approvePayment
 };

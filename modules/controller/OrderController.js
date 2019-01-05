@@ -289,6 +289,18 @@ let addRating = function(parameters,template){
             console.log("Error in createUser",error);
         })
 };
+let approvePayment = function(parameters,template){
+    return orderOperations.approvePayment(parameters,template)
+        .then(function(data){
+            if(data){
+                return data;
+            }else{
+                throw new Error('Cant approve Payment');
+            }
+        }).catch(function(error){
+            console.log("Error in createUser",error);
+        })
+};
 
 module.exports = {
    newOrder:newOrder,
@@ -306,6 +318,7 @@ module.exports = {
     getOffer:getOffer,
     createDonation:createDonation,
     getImages:getImages,
+    approvePayment:approvePayment,
     createUserOfferRelation:createUserOfferRelation
 
 };

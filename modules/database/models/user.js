@@ -6,14 +6,14 @@ var CATEGORY = ENUMS.category;
 var GENDER = ENUMS.gender;
 var YEAR = ENUMS.year;
 var UserSchema = new mongoose.Schema({
-    _id: String,
+    _id: {type:String},
 	firstname: {type: String, required: true}, //change the keys whenever firstname changes
 	middlename:{type:String},
 	lastname: {type: String}, //change the keys whenever lastname changes
 	name:{type:String},
-	phone: String,
+	phone:{type:String},
 	secondary_phoneno:{type:String},
-    email: {type:String,unique:true},
+    email: {type:String, unique:false},
 	dob:{type:Date},
     role:{
         type:String,
@@ -45,8 +45,10 @@ var UserSchema = new mongoose.Schema({
     gst:{type:String},
     about: String,
     }, {
-    minimize: false
+    minimize: false,
+    autoIndex:false
 });
 
+// UserSchema.index( {phone: 1});
 
 module.exports = mongoose.model('User', UserSchema);

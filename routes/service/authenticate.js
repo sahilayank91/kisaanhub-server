@@ -22,13 +22,13 @@ router.post('/login', function(req, res) {
     // let userEmail = req.body.email;
     let userPhone = req.body.phone;
 
-
-    if ((!DataValidator.isValidPhone(userPhone))  && !DataValidator.isValidPassword(userPass)){
-
-        console.log("User input is not correct");
-        RESPONSE.sendError(res,{success:false});
-
-    }else {
+    //
+    // if (!DataValidator.isValidPassword(userPass)){
+    //
+    //     console.log("User input is not correct");
+    //     RESPONSE.sendError(res,{success:false});
+    //
+    // }else {
         let parameters = {
             userpass: userPass,
             phone: userPhone
@@ -37,21 +37,17 @@ router.post('/login', function(req, res) {
         UserController.getUsers(parameters)
             .then(function (data) {
                 if (data) {
-
-                    /*Setting up session parameters*/
-                    // req.session.key = TokenHandler.generateAuthToken(data[0]._id,data[0].role);
-                    // req.session.email=data[0].email;
-                    // req.session.role = data[0].role;
-
-                    console.log(data[0]);
-                    RESPONSE.sendOkay(res, data[0]);
+                    console.log(data);
+                    RESPONSE.sendOkay(res, {success:true,data:data[0]});
                 } else {
-                    console.log("Some error occured while getting data from the database");
+                    console.log(data);
+
+                    RESPONSE.sendOkay(res,{success:false,data:'Cant find user with the given credentials'});
                 }
             }).catch(function (err) {
             console.log(err);
         });
-    }
+    // }
 
 
 });
@@ -65,7 +61,7 @@ router.post('/getUserByPinCode', function(req, res) {
                 if (data) {
                     RESPONSE.sendOkay(res, data);
                 } else {
-                    console.log("Some error occured while getting data from the database");
+                    RESPONSE.sendOkay(res,{success:false,data:'Cant find user with the given credentials'});
                 }
             }).catch(function (err) {
             console.log(err);
@@ -82,6 +78,8 @@ router.post('/getSellerByPinCode', function(req, res) {
             if (data) {
                 RESPONSE.sendOkay(res, data);
             } else {
+                RESPONSE.sendError(res,{success:false,data:'Cant find user with the given credentials'});
+
                 console.log("Some error occured while getting data from the database");
             }
         }).catch(function (err) {
@@ -109,6 +107,8 @@ router.post('/getUserById', function(req, res) {
                 console.log(data[0]);
                 RESPONSE.sendOkay(res, data[0]);
             } else {
+                RESPONSE.sendError(res,{success:false,data:'Cant find user with the given credentials'});
+
                 console.log("Some error occured while getting data from the database");
             }
         }).catch(function (err) {
@@ -156,6 +156,15 @@ router.post('/register',function(req,res) {
     if(req.body.gst){
         parameters.gst = req.body.gst;
     }
+    if(req.body.shop){
+        parameters.shop = req.body.shop;
+    }
+    if(req.body.landline){
+        parameters.landline = req.body.landline;
+    }
+    if(req.body.bankaccout){
+        parameters.bankaccount = req.body.bankaccount;
+    }
     UserController.registerUser(parameters)
         .then(function (data) {
             if (data) {
@@ -179,6 +188,9 @@ router.post('/getProfile',function(req,res,next){
         .then(function(data){
             if(data){
                 RESPONSE.sendOkay(res, {success: true, data: data});
+            }else{
+                RESPONSE.sendError(res,{success:false,data:'Cant find user with the given credentials'});
+
             }
         }).catch(function (error) {
         console.log("Error : ", error);
@@ -210,12 +222,17 @@ router.post('/updateUser', function (req, res, next) {
     let template = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        flataddress:req.body.flataddress,
         city:req.body.city,
         address:req.body.address,
         latitude:req.body.latitude,
         longitude:req.body.longitude
     };
+    if(req.body.shop){
+        template.shop = req.body.shop;
+    }
+    if(req.body.flataddress){
+        template.flataddress = req.body.flataddress;
+    }
 
     ProfileController.updateProfile(parameter,template)
         .then(function (Data) {
@@ -223,6 +240,8 @@ router.post('/updateUser', function (req, res, next) {
                 console.log(Data);
                 RESPONSE.sendOkay(res, Data);
             } else {
+                RESPONSE.sendError(res,{success:false,data:'Cant update user with the given credentials'});
+
                 console.log("Some error occured while updating data in the database");
             }
         }).catch(function(err){
@@ -247,6 +266,8 @@ router.post('/activateAccount', function (req, res, next) {
             if (Data) {
                 RESPONSE.sendOkay(res, {success: true});
             } else {
+                RESPONSE.sendError(res,{success:false,data:'Cant find user with the given credentials'});
+
                 console.log("Some error occured while updating data in the database");
             }
         }).catch(function(err){
@@ -365,6 +386,31 @@ router.get('/getLoggedInUser',function(req,res){
 
 
 });
+
+
+router.post('/checkIfUserExist',function(req,res){
+
+    let parameters;
+
+
+    if(req.body.phone && req.body.email){
+        parameters = {
+            $or:[{email:req.body.email},{phone:req.body.phone}]
+        }
+    }
+
+
+    UserController.getUserFullDetail(parameters)
+        .then(function(data){
+            if(data.length>0){
+                RESPONSE.sendOkay(res,{success:"true",data:data});
+            }else{
+                RESPONSE.sendOkay(res,{success:"false",data:data});
+            }
+        })
+
+});
+
 
 router.get('/logout',function(req,res){
 

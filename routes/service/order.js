@@ -13,6 +13,9 @@ router.post('/newOrder',function(req,res) {
     if(req.body.type){
         parameters.type = req.body.type;
     }
+    if(req.body.unit){
+        parameters.unit = req.body.unit;
+    }
     if(req.body.name){
       parameters.name = req.body.name
     }
@@ -70,7 +73,7 @@ router.post('/getOrder',function(req,res) {
 router.post('/getOrderByUserId',function(req,res) {
     let parameters = {
         customerId:req.body.customerId,
-        status: { $ne: "Processed" }
+        status: {$ne:"Completed"}
     };
     OrderController.getOrderByUserId(parameters)
         .then(function (data) {
@@ -159,10 +162,21 @@ router.post('/getProcessedOrders',function(req,res) {
 });
 
 router.post('/getCompletedOrders',function(req,res) {
-    let parameters = {
-        customerId:req.body.customerId,
-        status:'Processed'
-    };
+
+    let parameters = {};
+    if(req.body.role){
+        let role = req.body.role;
+
+        if(role==='Customer'){
+            parameters.customerId=req.body.customerId,
+                parameters.status='Completed'
+        }else if(role==='Seller'){
+            parameters.sellerId=req.body.sellerId,
+            parameters.status='Completed'
+        }
+    }
+
+
     OrderController.getOrderByDate(parameters)
         .then(function (data) {
             if (data) {

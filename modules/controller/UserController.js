@@ -1,4 +1,5 @@
 let userOperations = require(__BASE__+"modules/database/accessors/user_operations");
+const bcrypt = require('bcrypt');
 
 let getUsers = function(parameters){
     return userOperations.getUsers({phone: parameters.phone, password: parameters.userpass})
@@ -34,7 +35,9 @@ let registerUser = function(parameters){
             if(data){
                 return data;
             }else{
-                throw new Error('Cant create user with the given credentials');
+                let p = [];
+                return p;
+
             }
         }).catch(function(error){
             console.log("Error in createUser",error);
@@ -119,6 +122,8 @@ let forgotPassword = function (email) {
 
 
 let changePassword = function (query,template) {
+    template.password = bcrypt.hashSync(template.password, 10);
+
     return userOperations.changePassword(query,template)
         .then(function(data){
             if(data){

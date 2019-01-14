@@ -40,7 +40,9 @@ router.post('/newOrder',function(req,res) {
     if(req.body.locality) {
         parameters.locality = req.body.locality;
     }
-
+    if(req.body.payment_method){
+        parameters.payment_method = req.body.payment_method;
+    }
 
     OrderController.newOrder(parameters)
         .then(function (data) {

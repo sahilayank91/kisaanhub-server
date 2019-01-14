@@ -32,6 +32,7 @@ let getCreateTemplate = function (parameters) {
             case 'comment':
             case 'locality':
             case 'rating':
+            case 'payment_method':
                 template[key] = parameters[key];
                 break;
         }

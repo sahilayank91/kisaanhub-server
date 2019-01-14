@@ -40,6 +40,7 @@ const dbUrl = "mongodb://localhost:27017/kisaanhub";
 //         }`
 mongoose.connect(
     dbUrl,
+    { useNewUrlParser: true },
     function(err) {
         if (err) {
             LOGGER.log.error(

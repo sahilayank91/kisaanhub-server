@@ -390,13 +390,11 @@ router.get('/getLoggedInUser',function(req,res){
 
 router.post('/checkIfUserExist',function(req,res){
 
-    let parameters;
+    let parameters={};
 
 
-    if(req.body.phone && req.body.email){
-        parameters = {
-            $or:[{email:req.body.email},{phone:req.body.phone}]
-        }
+    if(req.body.phone){
+       parameters.phone = req.body.phone;
     }
 
 

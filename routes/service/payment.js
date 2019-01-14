@@ -94,7 +94,7 @@ router.post('/approvePayment',function(req,res){
     }else{
         RESPONSE.sendError(res,{success:false});
     }
-    let template = {$set:{"status":"Processed"}}
+    let template = {$set:[{"status":"Processed"},{"payment_method":req.body.payment_method}]}
 
     OrderController.approvePayment(parameters,template)
         .then(function(data){

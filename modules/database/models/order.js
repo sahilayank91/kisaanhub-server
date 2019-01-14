@@ -28,6 +28,7 @@ var OrderSchema = new mongoose.Schema({
     latitude:{type:String},
     longitude:{type:String},
     locality:{type:String},
+    payment_method:{type:String},
     rating:{type:Number},
     updated_at:{type:Date, default: new Date()},
     time:{type:String,enum:['Morning','Afternoon','Evening','Express']},

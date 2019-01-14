@@ -15,5 +15,4 @@ let OfferSchema = new mongoose.Schema(
     }
 );
 
-OfferSchema.index({_id: -1});
 module.exports = mongoose.model('Offer', OfferSchema);

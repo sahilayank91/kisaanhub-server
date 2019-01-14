@@ -37,6 +37,10 @@ router.post('/newOrder',function(req,res) {
     if(req.body.order){
         parameters.order = req.body.order;
     }
+    if(req.body.locality) {
+        parameters.locality = req.body.locality;
+    }
+
 
     OrderController.newOrder(parameters)
         .then(function (data) {

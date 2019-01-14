@@ -30,6 +30,8 @@ let getCreateTemplate = function (parameters) {
             case 'year':
             case 'image_url':
             case 'comment':
+            case 'locality':
+            case 'rating':
                 template[key] = parameters[key];
                 break;
         }

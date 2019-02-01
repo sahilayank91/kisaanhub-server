@@ -6,7 +6,7 @@ var NotificationSchema = new mongoose.Schema(
     {
         _id:{type:String},
         post: {type: mongoose.Schema.Types.ObjectId, ref: 'Post'},
-        user: {type: String, ref: 'User'},
+        userId: {type: String, ref: 'User'},
         text: {type: String},
         type:{type:String,enum:['Suggestion','Report','Like']},
         create_time: {type: Date, required: true},

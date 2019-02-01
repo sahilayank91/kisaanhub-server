@@ -96,6 +96,27 @@ router.post('/getOrderByUserId',function(req,res) {
         });
 });
 
+router.post('/getTotalOrder',function(req,res) {
+    let parameters = {
+        customerId:req.body.customerId,
+        status: {$ne:"Completed"}
+    };
+    OrderController.getOrderByUserId(parameters)
+        .then(function (data) {
+            if (data) {
+                console.log(data.length);
+                RESPONSE.sendOkay(res, {success: true,data:data.length});
+                return true;
+            } else {
+                console.log("Some error occured while getting order from the database");
+                return false;
+            }
+
+
+        });
+});
+
+
 router.post('/getTodayOrders',function(req,res) {
     let parameters = {
         sellerId:req.body.sellerId,
@@ -150,6 +171,24 @@ router.post('/getConfirmedOrders',function(req,res) {
         });
 });
 
+
+router.post('/getConfirmedOrdersLength',function(req,res) {
+    let parameters = {
+        sellerId:req.body.sellerId,
+        status:'Confirmed'
+    };
+    OrderController.getOrderByDate(parameters)
+        .then(function (data) {
+            if (data) {
+                RESPONSE.sendOkay(res, {success: true,data:data.length});
+                return true;
+            } else {
+                console.log("Some error occured while getting order from the database");
+                return false;
+            }
+        });
+});
+
 router.post('/getProcessedOrders',function(req,res) {
     let parameters = {
         sellerId:req.body.sellerId,
@@ -158,6 +197,7 @@ router.post('/getProcessedOrders',function(req,res) {
     OrderController.getOrderByDate(parameters)
         .then(function (data) {
             if (data) {
+                console.log(data);
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {
@@ -167,6 +207,23 @@ router.post('/getProcessedOrders',function(req,res) {
         });
 });
 
+router.post('/getProcessedOrdersLength',function(req,res) {
+    let parameters = {
+        sellerId:req.body.sellerId,
+        status:'Processed'
+    };
+    OrderController.getOrderByDate(parameters)
+        .then(function (data) {
+            if (data) {
+                console.log(data.length);
+                RESPONSE.sendOkay(res, {success: true,data:data.length});
+                return true;
+            } else {
+                console.log("Some error occured while getting order from the database");
+                return false;
+            }
+        });
+});
 router.post('/getCompletedOrders',function(req,res) {
 
     let parameters = {};
@@ -313,6 +370,9 @@ router.post('/processOrder',function(req,res) {
     }
     if(req.body.time){
         template.time = req.body.time;
+    }
+    if(req.body.payment_method){
+        template.payment_method = req.body.payment_method;
     }
 
     OrderController.updateOrder(parameters,template)

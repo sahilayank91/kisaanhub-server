@@ -50,7 +50,7 @@ let getCreateTemplate = function (parameters) {
     }
 
     if (!template._id) {
-        template._id = customUUID.getRandomString(6);
+        template._id = customUUID.getOTP(8);
     }
 
     return template;

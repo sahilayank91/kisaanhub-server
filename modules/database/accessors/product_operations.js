@@ -8,11 +8,12 @@ let getCreateTemplate = function (parameters) {
     let template = {}
     for (let key in parameters) {
         switch (key) {
-            case 'sellerId':
             case 'name':
             case 'price':
             case 'unit':
             case 'brand':
+            case 'type':
+            case 'imageurl':
                 template[key] = parameters[key];
                 break;
         }

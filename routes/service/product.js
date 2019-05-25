@@ -10,7 +10,9 @@ router.post('/newProduct',function(req,res) {
         price:req.body.price,
         name:req.body.name,
         unit:req.body.unit,
-        brand:req.body.brand
+        type:req.body.type,
+        brand:req.body.brand,
+        imageurl:req.body.imageurl
     };
 
     ProductController.newProduct(parameters)
@@ -28,6 +30,24 @@ router.post('/newProduct',function(req,res) {
 router.post('/getProduct',function(req,res) {
     let parameters = {
         _id:req.body._id,
+    };
+
+    ProductController.getProduct(parameters)
+        .then(function (data) {
+            if (data) {
+                console.log(data);
+                RESPONSE.sendOkay(res, {success: true,data:data});
+                return true;
+            } else {
+                console.log("Some error occured while getting order from the database");
+                return false;
+            }
+        });
+});
+
+router.post('/getProductByType',function(req,res) {
+    let parameters = {
+        type:req.body.type,
     };
 
     ProductController.getProduct(parameters)

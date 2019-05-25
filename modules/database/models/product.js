@@ -1,14 +1,16 @@
 var mongoose = require('mongoose');
 var ENUMS = require(__BASE__ + "config/enums");
+var TYPE = ENUMS.type;
 var UNIT = ENUMS.unit;
 var ProductSchema = new mongoose.Schema({
     _id: String,
     created_at: {type: Date, default: new Date()},
-    sellerId: {type: String, ref: 'User'},
     name:{type:String},
     price:{type:String},
     brand:{type:String},
-    unit:{type:String,enum:[UNIT.KILOGRAM,UNIT.LITRE]},
+    type:{type:String, enum:[TYPE.VEGETABLE,TYPE.FRUIT, TYPE.GRAIN], required: true},
+    unit:{type:String,enum:[UNIT.KILOGRAM,UNIT.LITRE], default: UNIT.KILOGRAM},
+    imageurl:{type:String},
     minimize: false,
 
 });

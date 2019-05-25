@@ -20,8 +20,9 @@ module.exports = {
         PICKED:'Picked'
     },
     type:{
-      NORMAL:'Normal',
-      EXPRESS:'Express'
+      VEGETABLE:'Vegetable',
+        FRUIT:'Fruit',
+        GRAIN:'Grain'
     },
     gender:{
         MALE:'Male',

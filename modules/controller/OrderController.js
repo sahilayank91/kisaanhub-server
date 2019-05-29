@@ -97,7 +97,7 @@ let refuseOrder = function (parameters) {
         })
 };
 let getOrder = function(parameters){
-    return orderOperations.getOrder(parameters)
+    return orderOperations.getOrderByUserId(parameters)
         .then(function(data){
             if(data){
                 return data;

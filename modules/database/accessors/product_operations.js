@@ -13,7 +13,11 @@ let getCreateTemplate = function (parameters) {
             case 'unit':
             case 'brand':
             case 'type':
+            case 'hindiname':
             case 'imageurl':
+            case 'twofiftygram':
+            case 'fivehundredgram':
+            case 'onekg':
                 template[key] = parameters[key];
                 break;
         }

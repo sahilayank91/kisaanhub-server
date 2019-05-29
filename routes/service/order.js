@@ -43,7 +43,11 @@ router.post('/newOrder',function(req,res) {
     if(req.body.payment_method){
         parameters.payment_method = req.body.payment_method;
     }
+    if(req.body.total){
+        parameters.total =req.body.total;
+    }
 
+    console.log(req.body.order);
     OrderController.newOrder(parameters)
         .then(function (data) {
             if (data) {
@@ -61,13 +65,16 @@ router.post('/newOrder',function(req,res) {
 
 router.post('/getOrder',function(req,res) {
     let parameters = {
-        _id:req.body._id,
+        status: {$ne:"Completed"}
     };
 
     OrderController.getOrder(parameters)
         .then(function (data) {
             if (data) {
-                RESPONSE.sendOkay(res, {success: true,data:data});
+                console.log(data);
+                data = data.reverse();
+
+                RESPONSE.sendOkay(res, {success: "true",data:data});
                 return true;
             } else {
                 console.log("Some error occured while getting order from the database");
@@ -85,6 +92,8 @@ router.post('/getOrderByUserId',function(req,res) {
         .then(function (data) {
             if (data) {
                 data = data.reverse();
+                console.log(data);
+
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {
@@ -119,7 +128,6 @@ router.post('/getTotalOrder',function(req,res) {
 
 router.post('/getTodayOrders',function(req,res) {
     let parameters = {
-        sellerId:req.body.sellerId,
         day:req.body.day,
         month:req.body.month,
         year:req.body.year,
@@ -139,7 +147,7 @@ router.post('/getTodayOrders',function(req,res) {
 
 router.post('/getUpcomingOrders',function(req,res) {
     let parameters = {
-        sellerId:req.body.sellerId,
+
         status:'Recieved'
     };
     OrderController.getOrderByDate(parameters)
@@ -156,7 +164,7 @@ router.post('/getUpcomingOrders',function(req,res) {
 
 router.post('/getConfirmedOrders',function(req,res) {
     let parameters = {
-        sellerId:req.body.sellerId,
+
         status:'Confirmed'
     };
     OrderController.getOrderByDate(parameters)
@@ -174,7 +182,7 @@ router.post('/getConfirmedOrders',function(req,res) {
 
 router.post('/getConfirmedOrdersLength',function(req,res) {
     let parameters = {
-        sellerId:req.body.sellerId,
+
         status:'Confirmed'
     };
     OrderController.getOrderByDate(parameters)
@@ -191,7 +199,6 @@ router.post('/getConfirmedOrdersLength',function(req,res) {
 
 router.post('/getProcessedOrders',function(req,res) {
     let parameters = {
-        sellerId:req.body.sellerId,
         status:'Processed'
     };
     OrderController.getOrderByDate(parameters)
@@ -209,7 +216,7 @@ router.post('/getProcessedOrders',function(req,res) {
 
 router.post('/getProcessedOrdersLength',function(req,res) {
     let parameters = {
-        sellerId:req.body.sellerId,
+
         status:'Processed'
     };
     OrderController.getOrderByDate(parameters)

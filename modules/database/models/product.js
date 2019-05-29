@@ -6,11 +6,16 @@ var ProductSchema = new mongoose.Schema({
     _id: String,
     created_at: {type: Date, default: new Date()},
     name:{type:String},
+    hindiname:{type:String},
     price:{type:String},
     brand:{type:String},
     type:{type:String, enum:[TYPE.VEGETABLE,TYPE.FRUIT, TYPE.GRAIN], required: true},
     unit:{type:String,enum:[UNIT.KILOGRAM,UNIT.LITRE], default: UNIT.KILOGRAM},
     imageurl:{type:String},
+    twofiftygram:{type:String},
+    fivehundredgram:{type:String},
+    onekg:{type:String},
+
     minimize: false,
 
 });

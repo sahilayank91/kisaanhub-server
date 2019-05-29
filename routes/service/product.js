@@ -11,8 +11,12 @@ router.post('/newProduct',function(req,res) {
         name:req.body.name,
         unit:req.body.unit,
         type:req.body.type,
+        hindiname:req.body.hindiname,
         brand:req.body.brand,
-        imageurl:req.body.imageurl
+        imageurl:req.body.imageurl,
+        twofiftygram:req.body.twofiftygram,
+        fivehundredgram:req.body.fivehundredgram,
+        onekg:req.body.onekg,
     };
 
     ProductController.newProduct(parameters)

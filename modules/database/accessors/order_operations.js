@@ -183,10 +183,7 @@ let getOrderByUserId = function(rule,fields,options){
                 path: "customerId",
                 select: '_id firstname lastname address flataddress city phone pincode latitude longitude'
             },
-                {
-                    path: "sellerId",
-                    select: '_id firstname lastname address flataddress city phone pincode latitude longitude'
-                }
+                
         ]).exec(function(err,data){
             if(!err){
                 resolve(data);

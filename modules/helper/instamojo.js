@@ -1,7 +1,7 @@
 let request= require('request');
 let Promise = require('bluebird');
-let API_KEY = 'b89ac8b2978fd72b07fe14c3a3ee7c9d';
-let AUTH_TOKEN = 'cfc4f6f965c8173793dbed98bcbfddcb';
+let API_KEY = '4845f9a7238467ba6b0bd781cc9d0e79';
+let AUTH_TOKEN = 'e8edef158807f3de73a35f48e3eaf468';
 let Insta = require('instamojo-nodejs');
 Insta.setKeys(API_KEY, AUTH_TOKEN);
 

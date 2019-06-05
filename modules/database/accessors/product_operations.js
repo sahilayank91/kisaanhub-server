@@ -11,6 +11,7 @@ let getCreateTemplate = function (parameters) {
             case 'name':
             case 'price':
             case 'unit':
+            case 'unitlist':
             case 'brand':
             case 'type':
             case 'hindiname':

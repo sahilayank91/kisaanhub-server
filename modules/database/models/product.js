@@ -10,7 +10,14 @@ var ProductSchema = new mongoose.Schema({
     price:{type:String},
     brand:{type:String},
     type:{type:String, enum:[TYPE.VEGETABLE,TYPE.FRUIT, TYPE.GRAIN], required: true},
-    unit:{type:String,enum:[UNIT.KILOGRAM,UNIT.LITRE], default: UNIT.KILOGRAM},
+    // unit:{type:String,enum:[UNIT.KILOGRAM,UNIT.LITRE], default: UNIT.KILOGRAM},
+    unitlist:[{
+        price: {type: String},
+        quantity:{type:String},
+        unit:{type:String,enum:[UNIT.KILOGRAM,UNIT.LITRE, UNIT.GRAM]}
+    }
+    ],
+    unit:{type:String},
     imageurl:{type:String},
     twofiftygram:{type:String},
     fivehundredgram:{type:String},

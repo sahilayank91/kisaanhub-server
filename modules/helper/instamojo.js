@@ -33,7 +33,7 @@ let createPaymentRequest= function(parameters){
             }
 
             payload.send_email = true;
-            payload.send_sms = false;
+            payload.send_sms = true;
             payload.allow_repeated_payments = false;
             payload.redirect_url = 'http://172.21.4.98:3000/service/payment/approveRequest/';
 

@@ -150,7 +150,6 @@ let updateOrder = function(parameters,template){
         })
 };
 
-
 let getOrderById = function(parameters){
     return orderOperations.getOrderById(parameters)
         .then(function(data){
@@ -251,6 +250,20 @@ let getOffer = function(parameters){
             console.log("Error in createUser",error);
         })
 };
+
+
+let deleteOffer = function(parameters){
+    return orderOperations.deleteOffer(parameters)
+        .then(function(data){
+            if(data){
+                return data;
+            }else{
+                throw new Error('Cant get offer with the given credentials');
+            }
+        }).catch(function(error){
+            console.log("Error in createUser",error);
+        })
+};
 let createUserOfferRelation = function(parameters){
     return orderOperations.createUserOfferRelation(parameters)
         .then(function(data){
@@ -319,6 +332,8 @@ module.exports = {
     createDonation:createDonation,
     getImages:getImages,
     approvePayment:approvePayment,
-    createUserOfferRelation:createUserOfferRelation
+    createUserOfferRelation:createUserOfferRelation,
+    deleteOffer:deleteOffer
+
 
 };

@@ -39,9 +39,6 @@ router.post('/createPaymentRequest', function(req, res) {
     PaymentController.createPaymentRequest(payload)
         .then(function (data) {
             if (data) {
-
-
-
                 data = data.replace(/(\r\n|\n|\r)/gm," ");
                 console.log(data);
 

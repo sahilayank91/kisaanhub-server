@@ -6,17 +6,12 @@ let ProductController = require(__BASE__ + "modules/controller/ProductController
 
 router.post('/newProduct',function(req,res) {
     let parameters = {
-        sellerId:req.body.sellerId,
-        price:req.body.price,
         name:req.body.name,
-        unit:req.body.unit,
+        unitlist:req.body.unitlist,
         type:req.body.type,
         hindiname:req.body.hindiname,
         brand:req.body.brand,
         imageurl:req.body.imageurl,
-        twofiftygram:req.body.twofiftygram,
-        fivehundredgram:req.body.fivehundredgram,
-        onekg:req.body.onekg,
     };
 
     ProductController.newProduct(parameters)
@@ -49,6 +44,24 @@ router.post('/getProduct',function(req,res) {
         });
 });
 
+router.post('/getAllProducts',function(req,res) {
+    let parameters = {
+
+    };
+
+    ProductController.getProduct(parameters)
+        .then(function (data) {
+            if (data) {
+                console.log(data);
+
+                RESPONSE.sendOkay(res, {success: true,data:data});
+                return true;
+            } else {
+                console.log("Some error occured while getting order from the database");
+                return false;
+            }
+        });
+});
 router.post('/getProductByType',function(req,res) {
     let parameters = {
         type:req.body.type,
@@ -57,7 +70,6 @@ router.post('/getProductByType',function(req,res) {
     ProductController.getProduct(parameters)
         .then(function (data) {
             if (data) {
-                console.log(data);
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {
@@ -74,7 +86,7 @@ router.post('/getProductBySellerId',function(req,res) {
     ProductController.getProductBySellerId(parameters)
         .then(function (data) {
             if (data) {
-                console.log(data);
+
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {
@@ -112,8 +124,25 @@ router.post('/updateProduct',function(req,res) {
     let parameters = {
         _id:req.body._id,
     };
+    let template = {};
+    if(req.body.name){
+        template.name = req.body.name;
+    }
+    if(req.body.hindiname){
+        template.hindiname = req.body.hindiname
+    }
+    if(req.body.brand){
+        template.brand = req.body.brand;
+    }
+    if(req.body.imageurl){
+        template.imageurl = req.body.imageurl;
+    }
+    if(req.body.unitlist){
+        template.unitlist = req.body.unitlist;
+    }
+    console.log(template)
 
-    ProductController.updateProduct(parameters)
+    ProductController.updateProduct(parameters, template)
         .then(function (data) {
             if (data) {
                 RESPONSE.sendOkay(res, {success: true,data:data});

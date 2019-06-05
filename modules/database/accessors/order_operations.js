@@ -33,6 +33,10 @@ let getCreateTemplate = function (parameters) {
             case 'locality':
             case 'rating':
             case 'payment_method':
+            case 'payment_status':
+            case 'paymentId':
+            case 'slot':
+            case 'time':
                 template[key] = parameters[key];
                 break;
         }
@@ -161,6 +165,19 @@ let updateOrder = function(rule,fields,options){
     });
 };
 
+let cancelOrder = function(rule,fields,options){
+    return new Promise(function(resolve,reject){
+        Order.findOneAndUpdate(rule,{$set:{status:'Cancelled'}}, {upsert: true}).exec(function(err,data){
+            if(!err){
+                resolve(data);
+            }else{
+                reject(new Error("Failed to update Users"));
+            }
+        });
+    });
+};
+
+
 let getOrderById = function(rule,fields,options){
     return new Promise(function(resolve,reject){
         Order.find(rule,fields,options).exec(function(err,data){
@@ -183,7 +200,7 @@ let getOrderByUserId = function(rule,fields,options){
                 path: "customerId",
                 select: '_id firstname lastname address flataddress city phone pincode latitude longitude'
             },
-                
+
         ]).exec(function(err,data){
             if(!err){
                 resolve(data);
@@ -193,17 +210,7 @@ let getOrderByUserId = function(rule,fields,options){
         });
     });
 };
-let cancelOrder = function(rule,fields,options){
-    return new Promise(function(resolve,reject){
-        Order.remove(rule,fields,options).exec(function(err,data){
-            if(!err){
-                resolve(data);
-            }else{
-                reject(new Error("Failed to cancel Order"));
-            }
-        });
-    });
-};
+
 let addWasherman = function(rule,fields,options){
     return new Promise(function(resolve,reject){
         Order.findOneAndUpdate(rule,fields, {upsert: true}).exec(function(err,data){
@@ -250,6 +257,17 @@ let getOffer = function(rule,fields,options){
         });
     });
 };
+let deleteOffer = function(rule,fields,options){
+    return new Promise(function(resolve,reject){
+        Offer.remove(rule,fields,options).exec(function(err,data){
+            if(!err){
+                resolve(data);
+            }else{
+                reject(new Error("Failed to get Offer by Id"));
+            }
+        });
+    });
+};
 
 
 let addRating = function(rule,fields,options){
@@ -284,11 +302,13 @@ module.exports = {
     getOrderById:getOrderById,
     getOrderFullDetail:getOrderFullDetail,
     getOrderByUserId:getOrderByUserId,
-    cancelOrder:cancelOrder,
+
     getOrderByDate:getOrderByDate,
     addWasherman:addWasherman,
     createOffer:createOffer,
     getOffer:getOffer,
+    cancelOrder:cancelOrder,
     addRating:addRating,
+    deleteOffer:deleteOffer,
     approvePayment:approvePayment
 };

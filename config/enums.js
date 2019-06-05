@@ -10,13 +10,15 @@ module.exports = {
     },
     unit:{
         KILOGRAM:'Kg',
-        LITRE:'L'
+        LITRE:'L',
+        GRAM:'g'
     },
     status:{
-      RECIEVED:'Recieved',
+      RECEIVED:'Received',
       COMPLETED:'Completed',
       DELIVERED:'Delivered',
       CANCELLED:'Cancelled',
+        PROCESSED:'Processed',
         PICKED:'Picked'
     },
     type:{

@@ -120,15 +120,17 @@ router.post('/register',function(req,res) {
         password: req.body.password,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        address:req.body.address,
         phone:req.body.phone,
         role:req.body.role,
         day:req.body.day,
         month:req.body.month,
-        year:req.body.year
+        year:req.body.year,
     };
     if(req.body.gender){
         parameters.gender = req.body.gender;
+    }
+    if(req.body.flataddress){
+        parameters.flataddress = req.body.flataddress;
     }
     if(req.body.secondary_phoneno){
         parameters.secondary_phoneno = req.body.secondary_phoneno;

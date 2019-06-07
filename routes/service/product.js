@@ -53,7 +53,6 @@ router.post('/getAllProducts',function(req,res) {
     ProductController.getProduct(parameters)
         .then(function (data) {
             if (data) {
-                console.log(data);
 
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
@@ -141,12 +140,16 @@ router.post('/updateProduct',function(req,res) {
     if(req.body.unitlist){
         template.unitlist = req.body.unitlist;
     }
-    if(req.body.outofstock){
+    if(req.body.outofstock!==undefined && req.body.outofstock===false){
         template.outofstock = req.body.outofstock;
     }
+
+    console.log(req.body.outofstock);
     template.updated_at = new Date();
 
 
+    console.log(parameters);
+    console.log(template);
     ProductController.updateProduct(parameters, template)
         .then(function (data) {
             if (data) {

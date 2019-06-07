@@ -419,6 +419,8 @@ router.post('/getAllUsers',function(req,res){
     }
 
 
+    console.log("inside");
+
     UserController.getUserFullDetail(parameters)
         .then(function(data){
             if(data.length>0){

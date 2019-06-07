@@ -12,6 +12,7 @@ router.post('/newProduct',function(req,res) {
         hindiname:req.body.hindiname,
         brand:req.body.brand,
         imageurl:req.body.imageurl,
+        outofstock:false
     };
 
     ProductController.newProduct(parameters)
@@ -140,7 +141,11 @@ router.post('/updateProduct',function(req,res) {
     if(req.body.unitlist){
         template.unitlist = req.body.unitlist;
     }
-    console.log(template)
+    if(req.body.outofstock){
+        template.outofstock = req.body.outofstock;
+    }
+    template.updated_at = new Date();
+
 
     ProductController.updateProduct(parameters, template)
         .then(function (data) {

@@ -16,9 +16,7 @@ let getCreateTemplate = function (parameters) {
             case 'type':
             case 'hindiname':
             case 'imageurl':
-            case 'twofiftygram':
-            case 'fivehundredgram':
-            case 'onekg':
+            case 'outofstock':
                 template[key] = parameters[key];
                 break;
         }
@@ -26,6 +24,7 @@ let getCreateTemplate = function (parameters) {
 
 
     template.created_at = new Date();
+    template.updated_at = new Date();
 
     if (!template._id) {
         template._id = customUUID.getRandomString(6);

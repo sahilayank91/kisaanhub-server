@@ -22,7 +22,8 @@ var ProductSchema = new mongoose.Schema({
     twofiftygram:{type:String},
     fivehundredgram:{type:String},
     onekg:{type:String},
-
+    outofstock:{type:Boolean,default: false},
+    updated_at:{type:Date, default:new Date()},
     minimize: false,
 
 });

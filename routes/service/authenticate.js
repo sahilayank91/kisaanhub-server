@@ -409,6 +409,26 @@ router.post('/checkIfUserExist',function(req,res){
         })
 
 });
+router.post('/getAllUsers',function(req,res){
+
+    let parameters={};
+
+
+    if(req.body.role){
+        parameters.role = req.body.role;
+    }
+
+
+    UserController.getUserFullDetail(parameters)
+        .then(function(data){
+            if(data.length>0){
+                RESPONSE.sendOkay(res,{success:"true",data:data});
+            }else{
+                RESPONSE.sendOkay(res,{success:"false",data:data});
+            }
+        })
+
+});
 
 
 router.get('/logout',function(req,res){

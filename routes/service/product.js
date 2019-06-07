@@ -140,7 +140,7 @@ router.post('/updateProduct',function(req,res) {
     if(req.body.unitlist){
         template.unitlist = req.body.unitlist;
     }
-    if(req.body.outofstock!==undefined && req.body.outofstock===false){
+    if(req.body.outofstock!==undefined){
         template.outofstock = req.body.outofstock;
     }
 

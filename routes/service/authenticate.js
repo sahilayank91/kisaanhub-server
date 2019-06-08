@@ -36,10 +36,12 @@ router.post('/login', function(req, res) {
         UserController.getUsers(parameters)
             .then(function (data) {
                 if (data) {
-                    console.log(data);
+                    console.log("dd");
                     RESPONSE.sendOkay(res, {success:true,data:data[0]});
                 } else {
-                    console.log(data);
+
+
+                    console.log("sfsfsfsafasfsfsfsf");
 
                     RESPONSE.sendOkay(res,{success:false,data:'Cant find user with the given credentials'});
                 }
@@ -148,9 +150,7 @@ router.post('/register',function(req,res) {
     if(req.body.pincode){
         parameters.pincode = req.body.pincode;
     }
-    if(req.body.userflataddress){
-        parameters.flataddress  = req.body.userflataddress;
-    }
+
     if(req.body.ifsc){
         parameters.ifsc = req.body.ifsc;
     }
@@ -166,6 +166,7 @@ router.post('/register',function(req,res) {
     if(req.body.bankaccout){
         parameters.bankaccount = req.body.bankaccount;
     }
+    console.log(parameters);
     UserController.registerUser(parameters)
         .then(function (data) {
             if (data) {
@@ -401,7 +402,7 @@ router.post('/checkIfUserExist',function(req,res){
 
     UserController.getUserFullDetail(parameters)
         .then(function(data){
-            if(data.length>0){
+            if(data && data.length>0){
                 RESPONSE.sendOkay(res,{success:"true",data:data});
             }else{
                 RESPONSE.sendOkay(res,{success:"false",data:data});

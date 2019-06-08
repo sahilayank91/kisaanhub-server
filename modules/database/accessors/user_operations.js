@@ -70,7 +70,8 @@ let createUser = function (parameters) {
 				if (!err) {
 					resolve(data);
 				} else {
-					console.log(err);
+                    resolve(false);
+                    console.log(err);
 					reject(new Error('createUser failed'));
 				}
 			});
@@ -82,14 +83,14 @@ let getUsers = function (rule, fields, options) {
     return new Promise(function (resolve, reject) {
         User.find({phone:rule.phone}, fields, options).exec(function (err, data) {
             if (!err) {
-                console.log(data);
                 if(data.length>0){
                     if(bcrypt.compareSync(rule.password, data[0].password)===true){
                         resolve(data);
                     } else{
-                        console.log("failed");
                         reject(new Error('Failed to get Users'));
                     }
+                }else{
+                    resolve(false);
                 }
 
             } else {

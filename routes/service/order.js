@@ -95,14 +95,14 @@ router.post('/getOrder',function(req,res) {
     //     status: {$ne:"Completed"}
     // };
     let query = {
-
+        $and: [ { status: { $ne: "Cancelled" } }, { status: { $ne: "Completed" } } ]
     };
 
     OrderController.getOrder(query)
         .then(function (data) {
             if (data) {
                 data = data.reverse();
-
+console.log(data);
                 RESPONSE.sendOkay(res, {success: "true",data:data});
                 return true;
             } else {
@@ -112,10 +112,34 @@ router.post('/getOrder',function(req,res) {
         });
 });
 
+router.post('/getOrderForApp',function(req,res) {
+    // let parameters = {
+    //     status: {$ne:"Completed"}
+    // };
+    let query = {
+            status:'Processed'
+    };
+
+    OrderController.getOrder(query)
+        .then(function (data) {
+            if (data) {
+                data = data.reverse();
+                console.log(data);
+                RESPONSE.sendOkay(res, {success: "true",data:data});
+                return true;
+            } else {
+                console.log("Some error occured while getting order from the database");
+                return false;
+            }
+        });
+});
+
+
 router.post('/getOrderByUserId',function(req,res) {
     let parameters = {
         customerId:req.body.customerId,
-        status: {$ne:"Completed"}
+        $and: [ { status: { $ne: "Completed" } }, { status: { $ne: "Cancelled" } } ]
+
     };
     OrderController.getOrderByUserId(parameters)
         .then(function (data) {
@@ -261,17 +285,18 @@ router.post('/getProcessedOrdersLength',function(req,res) {
 router.post('/getCompletedOrders',function(req,res) {
 
     let parameters = {};
-    if(req.body.role){
-        let role = req.body.role;
-
-        if(role==='Customer'){
-            parameters.customerId=req.body.customerId,
-                parameters.status='Completed'
-        }else if(role==='Seller'){
-            parameters.sellerId=req.body.sellerId,
-            parameters.status='Completed'
-        }
-    }
+    parameters.status = 'Completed';
+    // if(req.body.role){
+    //     let role = req.body.role;
+    //
+    //     if(role==='Customer'){
+    //         parameters.customerId=req.body.customerId,
+    //             parameters.status='Completed'
+    //     }else if(role==='Seller'){
+    //         parameters.sellerId=req.body.sellerId,
+    //         parameters.status='Completed'
+    //     }
+    // }
 
 
     OrderController.getOrderByDate(parameters)

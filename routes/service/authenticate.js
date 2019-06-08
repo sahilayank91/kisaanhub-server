@@ -410,6 +410,28 @@ router.post('/checkIfUserExist',function(req,res){
         })
 
 });
+
+router.post('/removeUser',function(req,res){
+
+    let parameters={};
+
+
+    if(req.body._id){
+        parameters._id = req.body._id;
+    }
+
+
+    UserController.removeUser(parameters)
+        .then(function(data){
+            if(data){
+                RESPONSE.sendOkay(res,{success:true,data:data});
+            }else{
+                RESPONSE.sendOkay(res,{success:false,data:data});
+            }
+        })
+
+});
+
 router.post('/getAllUsers',function(req,res){
 
     let parameters={};

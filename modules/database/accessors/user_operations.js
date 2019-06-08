@@ -163,9 +163,9 @@ let followUser = function(rule,fields,options){
     });
 };
 
-let addFollower = function(rule,fields,options){
+let removeUser = function(rule,fields,options){
     return new Promise(function(resolve,reject){
-        User.update(rule,fields,options).exec(function(err,data){
+        User.remove(rule,fields,options).exec(function(err,data){
             if(!err){
                 resolve(data);
             }else{
@@ -219,10 +219,9 @@ module.exports = {
     updateUser:updateUser,
     getUserById:getUserById,
 	getUserFullDetail:getUserFullDetail,
-    followUser:followUser,
-    addFollower:addFollower,
     removeFollower:removeFollower,
     unfollowUser:unfollowUser,
-    changePassword:changePassword
+    changePassword:changePassword,
+    removeUser:removeUser
 
 };

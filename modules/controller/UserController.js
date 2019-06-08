@@ -73,22 +73,16 @@ let getUserFullDetail = function(parameters){
 
 
 
-let followUser = function (userId, query,id) {
-    return userOperations.followUser({_id: userId},query)
+let removeUser = function (parameters) {
+    return userOperations.removeUser(parameters)
         .then(function (data) {
-            let q = {
-              $push:{"follower":userId}
-            };
-            userOperations.addFollower({_id:id},q)
-                .then(function(data){
-                    console.log("dafsadfa",data);
-
-                })
-
+            if(data) return data;
         }).catch(function(err){
             console.log(err);
         })
 };
+
+
 let unfollowUser = function (userId, query,id) {
     return userOperations.unfollowUser({_id: userId},query)
         .then(function (data) {
@@ -143,8 +137,8 @@ module.exports = {
   getLoggedInUser:getLoggedInUser,
   registerUser:registerUser,
   updateProfilePic:updateProfilePic,
-    followUser:followUser,
     unfollowUser:unfollowUser,
+    removeUser:removeUser,
     forgotPassword:forgotPassword,
     changePassword:changePassword
 };

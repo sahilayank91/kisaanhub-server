@@ -221,14 +221,14 @@ router.post('/updateUser', function (req, res, next) {
     let parameter = {
         _id:req.body._id
     };
-    // let template = {
-    //     firstname: req.body.firstname,
-    //     lastname: req.body.lastname,
-    //     city:req.body.city,
-    //     address:req.body.address,
-    //     latitude:req.body.latitude,
-    //     longitude:req.body.longitude
-    // };
+    let template = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        city:req.body.city,
+        address:req.body.address,
+        latitude:req.body.latitude,
+        longitude:req.body.longitude
+    };
 
     if(req.body.firstname){
         template.firstname = req.body.firstname;

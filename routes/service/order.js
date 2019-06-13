@@ -53,6 +53,12 @@ router.post('/newOrder',function(req,res) {
     if(req.body.total){
         parameters.total =req.body.total;
     }
+    if(req.body.latitude){
+        parameters.latitude = req.body.latitude;
+    }
+    if(req.body.longitude){
+        parameters.longitude = req.body.longitude;
+    }
 
     console.log(req.body.order);
     OrderController.newOrder(parameters)

@@ -221,19 +221,36 @@ router.post('/updateUser', function (req, res, next) {
     let parameter = {
         _id:req.body._id
     };
-    let template = {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        city:req.body.city,
-        address:req.body.address,
-        latitude:req.body.latitude,
-        longitude:req.body.longitude
-    };
+    // let template = {
+    //     firstname: req.body.firstname,
+    //     lastname: req.body.lastname,
+    //     city:req.body.city,
+    //     address:req.body.address,
+    //     latitude:req.body.latitude,
+    //     longitude:req.body.longitude
+    // };
+
+    if(req.body.firstname){
+        template.firstname = req.body.firstname;
+    }
+    if(req.body.city){
+        template.city = req.body.city;
+    }
+    if(req.body.latitude){
+        template.latitude = req.body.latitude;
+    }
+    if(req.body.longitude){
+        template.longitude = req.body.longitude;
+    }
     if(req.body.shop){
         template.shop = req.body.shop;
     }
     if(req.body.flataddress){
         template.flataddress = req.body.flataddress;
+    }
+
+    if(req.body.pincode){
+        template.pincode = req.body.pincode;
     }
 
     ProfileController.updateProfile(parameter,template)

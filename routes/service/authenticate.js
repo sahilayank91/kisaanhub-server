@@ -121,7 +121,6 @@ router.post('/register',function(req,res) {
         email: req.body.email,
         password: req.body.password,
         firstname: req.body.firstname,
-        lastname: req.body.lastname,
         phone:req.body.phone,
         role:req.body.role,
         day:req.body.day,

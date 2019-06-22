@@ -198,7 +198,7 @@ let getOrderByUserId = function(rule,fields,options){
             .populate([
             {
                 path: "customerId",
-                select: '_id firstname lastname address flataddress city phone pincode latitude longitude'
+                select: '_id firstname flataddress city phone pincode locality'
             },
 
         ]).exec(function(err,data){
@@ -229,11 +229,11 @@ let getOrderByDate = function(rule,fields,options){
             .populate([
                 {
                     path: "customerId",
-                    select: '_id firstname lastname address flataddress city phone pincode'
+                    select: '_id firstname lastname address flataddress city phone pincode locality'
                 },
                 {
                     path: "sellerId",
-                    select: '_id firstname lastname address flataddress city phone pincode'
+                    select: '_id firstname lastname address flataddress city phone pincode locality'
                 }
             ])
             .exec(function(err,data){

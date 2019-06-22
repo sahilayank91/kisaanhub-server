@@ -230,6 +230,10 @@ router.post('/updateUser', function (req, res, next) {
         longitude:req.body.longitude
     };
 
+    if(req.body.locality){
+        template.locality = req.body.locality;
+    }
+
     if(req.body.firstname){
         template.firstname = req.body.firstname;
     }

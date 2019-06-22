@@ -41,6 +41,7 @@ let getCreateTemplate = function (parameters) {
                     case 'month':
                     case 'year':
                     case 'gst':
+                    case 'locality':
                     case 'flataddress':
                 template[key] = parameters[key];
                 break;

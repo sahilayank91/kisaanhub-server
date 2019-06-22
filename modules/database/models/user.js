@@ -26,6 +26,7 @@ var UserSchema = new mongoose.Schema({
 	},
     address:{type:String},
     flataddress:{type:String},
+    locality:{type:String},
     city:{type:String},
     pincode:{type:String},
     profilePic: {type:String},
@@ -35,9 +36,7 @@ var UserSchema = new mongoose.Schema({
     occupation:{type:String},
     latitude:{type:String},
     longitude:{type:String},
-    day:{type:String},
-    month:{type:String},
-    year:{type:String},
+
     landline:{type:String},
     shop:{type:String},
     bankaccount:{type:String},

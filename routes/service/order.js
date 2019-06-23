@@ -118,6 +118,11 @@ console.log(data);
         });
 });
 
+
+
+
+
+
 router.post('/getOrderForApp',function(req,res) {
     // let parameters = {
     //     status: {$ne:"Completed"}
@@ -130,7 +135,6 @@ router.post('/getOrderForApp',function(req,res) {
         .then(function (data) {
             if (data) {
                 data = data.reverse();
-                console.log(data);
                 RESPONSE.sendOkay(res, {success: "true",data:data});
                 return true;
             } else {
@@ -202,14 +206,14 @@ router.post('/getTodayOrders',function(req,res) {
         });
 });
 
-router.post('/getUpcomingOrders',function(req,res) {
+router.post('/getReceivedOrders',function(req,res) {
     let parameters = {
-
-        status:'Recieved'
+        status:'Received'
     };
-    OrderController.getOrderByDate(parameters)
+    OrderController.getOrder(parameters)
         .then(function (data) {
             if (data) {
+                data = data.reverse();
                 RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {

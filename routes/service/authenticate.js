@@ -116,6 +116,10 @@ router.post('/getUserById', function(req, res) {
         console.log(err);
     });
 });
+
+
+
+
 router.post('/register',function(req,res) {
     let parameters = {
         email: req.body.email,
@@ -461,9 +465,6 @@ router.post('/getAllUsers',function(req,res){
         parameters.role = req.body.role;
     }
 
-
-    console.log("inside");
-
     UserController.getUserFullDetail(parameters)
         .then(function(data){
             if(data.length>0){
@@ -474,6 +475,23 @@ router.post('/getAllUsers',function(req,res){
         })
 
 });
+
+
+router.post('/getCredit',function(req,res){
+    let parameters = {
+        _id:req.body._id
+    };
+
+    UserController.getCredit(parameters)
+        .then(function(data){
+            if(data){
+                RESPONSE.sendOkay(res,{success:"true",data:data});
+            }else{
+                RESPONSE.sendOkay(res,{success:"false",data:data});
+            }
+        })
+});
+
 
 
 router.get('/logout',function(req,res){

@@ -296,18 +296,6 @@ router.post('/getCompletedOrders',function(req,res) {
 
     let parameters = {};
     parameters.status = 'Completed';
-    // if(req.body.role){
-    //     let role = req.body.role;
-    //
-    //     if(role==='Customer'){
-    //         parameters.customerId=req.body.customerId,
-    //             parameters.status='Completed'
-    //     }else if(role==='Seller'){
-    //         parameters.sellerId=req.body.sellerId,
-    //         parameters.status='Completed'
-    //     }
-    // }
-
 
     OrderController.getOrderByDate(parameters)
         .then(function (data) {
@@ -323,7 +311,23 @@ router.post('/getCompletedOrders',function(req,res) {
 
 
 
+router.post('/getCompletedOrderByUserId',function(req,res) {
 
+    let parameters = {};
+    parameters.status = 'Completed';
+    parameters.customerId = req.body.customerId;
+
+    OrderController.getOrderByDate(parameters)
+        .then(function (data) {
+            if (data) {
+                RESPONSE.sendOkay(res, {success: true,data:data});
+                return true;
+            } else {
+                console.log("Some error occured while getting order from the database");
+                return false;
+            }
+        });
+});
 router.post('/updateOrder',function(req,res) {
     let parameters = {
         _id:req.body._id,

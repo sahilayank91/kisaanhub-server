@@ -70,6 +70,18 @@ let getUserFullDetail = function(parameters){
 			console.log("Error in get Users: ",error);
 		});
 };
+let getCredit = function(parameters){
+    return userOperations.getCredit(parameters)
+        .then(function(data){
+            if(data){
+                return data;
+            }else{
+                throw new Error('No User exists with given id');
+            }
+        }).catch(function(error){
+            console.log("Error in get Users: ",error);
+        });
+};
 
 
 
@@ -140,5 +152,6 @@ module.exports = {
     unfollowUser:unfollowUser,
     removeUser:removeUser,
     forgotPassword:forgotPassword,
-    changePassword:changePassword
+    changePassword:changePassword,
+    getCredit:getCredit
 };

@@ -212,7 +212,17 @@ let changePassword = function(rule,fields,options){
         });
     });
 };
-
+let getCredit = function(rule,fields,options){
+    return new Promise(function(resolve,reject){
+        User.find(rule,{credit:1},options).exec(function(err,data){
+                if(!err){
+                    resolve(data);
+                }else{
+                    reject(new Error("Failed to get order"));
+                }
+            });
+    });
+};
 
 module.exports = {
     createUser: createUser,
@@ -223,6 +233,7 @@ module.exports = {
     removeFollower:removeFollower,
     unfollowUser:unfollowUser,
     changePassword:changePassword,
-    removeUser:removeUser
+    removeUser:removeUser,
+    getCredit:getCredit
 
 };

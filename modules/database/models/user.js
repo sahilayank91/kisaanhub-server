@@ -43,6 +43,7 @@ var UserSchema = new mongoose.Schema({
     ifsc:{type:String},
     gst:{type:String},
     about: String,
+    credit:{type:Number}
     }, {
     minimize: false,
     autoIndex:false

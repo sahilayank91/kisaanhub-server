@@ -36,14 +36,14 @@ var UserSchema = new mongoose.Schema({
     occupation:{type:String},
     latitude:{type:String},
     longitude:{type:String},
-
     landline:{type:String},
     shop:{type:String},
     bankaccount:{type:String},
     ifsc:{type:String},
     gst:{type:String},
     about: String,
-    credit:{type:Number}
+    credit:{type:Number, default:0},
+    numOrders:{type:Number}
     }, {
     minimize: false,
     autoIndex:false

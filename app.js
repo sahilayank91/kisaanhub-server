@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /*************** Database Connection ****************/
 /****************************************************/
 
-const dbUrl = "mongodb://sahilayank:woV27rB70hNF4IRr@cluster0-shard-00-00-r1tkp.mongodb.net:27017,cluster0-shard-00-01-r1tkp.mongodb.net:27017,cluster0-shard-00-02-r1tkp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true";
+    const dbUrl = "mongodb://sahilayank:woV27rB70hNF4IRr@cluster0-shard-00-00-r1tkp.mongodb.net:27017,cluster0-shard-00-01-r1tkp.mongodb.net:27017,cluster0-shard-00-02-r1tkp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true";
 // const dbUrl =
 //     process.env.MONGO_URL ||
 //     `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASS}/${

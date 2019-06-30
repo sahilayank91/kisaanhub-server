@@ -43,6 +43,7 @@ let getCreateTemplate = function (parameters) {
                     case 'gst':
                     case 'locality':
                     case 'flataddress':
+                    case 'credit':
                 template[key] = parameters[key];
                 break;
         }

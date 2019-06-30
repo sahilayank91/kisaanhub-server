@@ -127,9 +127,7 @@ router.post('/register',function(req,res) {
         firstname: req.body.firstname,
         phone:req.body.phone,
         role:req.body.role,
-        day:req.body.day,
-        month:req.body.month,
-        year:req.body.year,
+        credit:'0'
     };
     if(req.body.gender){
         parameters.gender = req.body.gender;
@@ -493,6 +491,24 @@ router.post('/getCredit',function(req,res){
 });
 
 
+router.post('/setCredit',function(req,res){
+    let parameters = {
+        _id:req.body._id
+    };
+    let template = {};
+    if(req.body.credit){
+        template.credit = req.body.credit;
+    }
+
+    ProfileController.updateProfile(parameters,template)
+        .then(function(data){
+            if(data){
+                RESPONSE.sendOkay(res,{success:"true",data:data});
+            }else{
+                RESPONSE.sendOkay(res,{success:"false",data:data});
+            }
+        })
+});
 
 router.get('/logout',function(req,res){
 

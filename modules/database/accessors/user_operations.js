@@ -227,7 +227,7 @@ let getCredit = function(rule,fields,options){
 
 let setCredit = function(rule,credit,options){
     return new Promise(function(resolve,reject){
-        User.update(rule,{ $inc: { qty: credit }},options).exec(function(err,data){
+        User.update(rule,{ $inc: { credit: credit }},options).exec(function(err,data){
             if(!err){
                 resolve(data);
             }else{

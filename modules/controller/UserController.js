@@ -83,6 +83,18 @@ let getCredit = function(parameters){
         });
 };
 
+let setCredit = function(parameters, credit){
+    return userOperations.setCredit(parameters,credit)
+        .then(function(data){
+            if(data){
+                return data;
+            }else{
+                throw new Error('No User exists with given id');
+            }
+        }).catch(function(error){
+            console.log("Error in get Users: ",error);
+        });
+};
 
 
 let removeUser = function (parameters) {
@@ -153,5 +165,6 @@ module.exports = {
     removeUser:removeUser,
     forgotPassword:forgotPassword,
     changePassword:changePassword,
-    getCredit:getCredit
+    getCredit:getCredit,
+    setCredit:setCredit
 };

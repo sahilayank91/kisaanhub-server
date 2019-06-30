@@ -495,12 +495,12 @@ router.post('/setCredit',function(req,res){
     let parameters = {
         _id:req.body._id
     };
-    let template = {};
+    let credit;
     if(req.body.credit){
-        template.credit = req.body.credit;
+      credit = req.body.credit;
     }
 
-    ProfileController.updateProfile(parameters,template)
+    UserController.setCredit(parameters,credit)
         .then(function(data){
             if(data){
                 RESPONSE.sendOkay(res,{success:"true",data:data});

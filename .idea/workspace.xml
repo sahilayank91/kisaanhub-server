@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8903bf3a-0db2-4f79-981e-d35387253bda" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/modules/controller/UserController.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/controller/UserController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/database/accessors/user_operations.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/database/accessors/user_operations.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/service/authenticate.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/service/authenticate.js" afterDir="false" />
-    </list>
+    <list default="true" id="8903bf3a-0db2-4f79-981e-d35387253bda" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -350,12 +346,12 @@
       <workItem from="1561550068811" duration="937000" />
       <workItem from="1561806283693" duration="1859000" />
       <workItem from="1561812190684" duration="662000" />
-      <workItem from="1561880190726" duration="3447000" />
+      <workItem from="1561880190726" duration="3843000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="192782000" />
+    <option name="totallyTimeSpent" value="193178000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />

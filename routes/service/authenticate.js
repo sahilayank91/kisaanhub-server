@@ -493,7 +493,7 @@ router.post('/getCredit',function(req,res){
 
 router.post('/setCredit',function(req,res){
     let parameters = {
-        _id:req.body._id
+        _id:req.body.customerId
     };
     let credit;
     if(req.body.credit){

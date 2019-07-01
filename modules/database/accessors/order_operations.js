@@ -37,6 +37,7 @@ let getCreateTemplate = function (parameters) {
             case 'paymentId':
             case 'slot':
             case 'time':
+            case 'discount':
                 template[key] = parameters[key];
                 break;
         }

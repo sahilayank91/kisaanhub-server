@@ -36,6 +36,7 @@ var OrderSchema = new mongoose.Schema({
     updated_at:{type:Date, default: new Date()},
     time:{type:String,enum:['Morning (8am - 11 am)','Evening (4pm -7pm)']},
     status:{type:String,enum:[STATUS.RECEIVED,STATUS.COMPLETED,STATUS.DELIVERED,STATUS.CANCELLED,STATUS.PICKED, STATUS.PROCESSED],required:true},
+    discount:{type:Number},
     minimize: false,
 
 });

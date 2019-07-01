@@ -123,11 +123,11 @@ let verifyPickup = function(parameters){
         })
 };
 
-let verifyDelivery = function(parameters){
-    return orderOperations.getOrder(parameters)
+let verifyDelivery = function(parameters,template){
+    return orderOperations.getOrder(parameters,template)
         .then(function(data){
             if(data){
-                return updateOrder(parameters,{status:"Completed"});
+                return updateOrder(parameters,template);
             }else{
                 throw new Error('Cant create user with the given credentials');
             }

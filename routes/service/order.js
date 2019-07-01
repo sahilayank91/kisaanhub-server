@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let RESPONSE = require(__BASE__ + "modules/controller/handler/ResponseHandler");
 let OrderController = require(__BASE__ + "modules/controller/OrderController");
+let UserController = require(__BASE__ + "modules/controller/UserController");
 
 
 router.post('/newOrder',function(req,res) {
@@ -59,7 +60,9 @@ router.post('/newOrder',function(req,res) {
     if(req.body.longitude){
         parameters.longitude = req.body.longitude;
     }
-
+if(req.body.discount){
+    parameters.discount = req.body.discount;
+}
     console.log(req.body.order);
     OrderController.newOrder(parameters)
         .then(function (data) {
@@ -573,8 +576,17 @@ router.post('/verifyDelivery',function (req,res) {
         parameters.delivered_otp = req.body.delivered_otp;
     }
 
+    let template = {
 
-    OrderController.verifyDelivery(parameters)
+    }
+
+    if(req.body.payment_status){
+        template.payment_status = req.body.payment_status;
+    }
+
+    template.status = "Completed";
+
+    OrderController.verifyDelivery(parameters,template)
         .then(function(data){
             console.log(data);
             if(data){
@@ -593,8 +605,19 @@ router.post('/cancelOrder',function(req,res) {
     OrderController.cancelOrder(parameters)
         .then(function (data) {
             if (data) {
-                RESPONSE.sendOkay(res, {success: true,data:data});
-                return true;
+                console.log(data.customerId);
+                let rule = {
+                    _id:data.customerId
+                };
+
+                UserController.setCredit(rule,Math.round(Math.round(-1*0.1*data.total)+data.discount)|0)
+                    .then(function(data){
+                        RESPONSE.sendOkay(res, {success: true,data:data});
+                        return true;
+                    }).catch(function(err){
+                        console.log(err);
+                })
+
             } else {
                 console.log("Some error occured while getting order from the database");
                 return false;
@@ -610,7 +633,6 @@ router.post('/createOffer',function (req,res) {
     let parameters = {
         url:req.body.url,
     };
-    console.log(parameters);
 
     OrderController.createOffer(parameters)
         .then(function(data){

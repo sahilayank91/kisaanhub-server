@@ -237,6 +237,18 @@ let setCredit = function(rule,credit,options){
     });
 };
 
+let removeCredit = function(rule,credit,options){
+    return new Promise(function(resolve,reject){
+        User.update(rule,{ $set: { credit: 0 }},options).exec(function(err,data){
+            if(!err){
+                resolve(data);
+            }else{
+                reject(new Error("Failed to get order"));
+            }
+        });
+    });
+};
+
 
 module.exports = {
     createUser: createUser,

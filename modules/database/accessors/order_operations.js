@@ -38,6 +38,7 @@ let getCreateTemplate = function (parameters) {
             case 'slot':
             case 'time':
             case 'discount':
+            case 'credit':
                 template[key] = parameters[key];
                 break;
         }

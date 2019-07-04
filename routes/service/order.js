@@ -60,9 +60,12 @@ router.post('/newOrder',function(req,res) {
     if(req.body.longitude){
         parameters.longitude = req.body.longitude;
     }
-if(req.body.discount){
-    parameters.discount = req.body.discount;
-}
+    if(req.body.credit){
+        parameters.credit = req.body.credit;
+    }
+    if(req.body.discount){
+        parameters.discount = req.body.discount;
+    }
     console.log(req.body.order);
     OrderController.newOrder(parameters)
         .then(function (data) {
@@ -583,6 +586,18 @@ router.post('/verifyDelivery',function (req,res) {
     if(req.body.payment_status){
         template.payment_status = req.body.payment_status;
     }
+    let discount;
+    let credit;
+    let customerId;
+    if(req.body.discount){
+        discount = req.body.discount;
+    }
+    if(req.body.credit){
+        credit = req.body.credit;
+    }
+    if(req.body.customerId){
+        customerId = req.body.customerId;
+    }
 
     template.status = "Completed";
 
@@ -590,7 +605,14 @@ router.post('/verifyDelivery',function (req,res) {
         .then(function(data){
             console.log(data);
             if(data){
-                RESPONSE.sendOkay(res,{success:true});
+                UserController.setCredit({_id:customerId},(credit)|0)
+                    .then(function(data){
+                    RESPONSE.sendOkay(res, {success: true,data:data});
+                    return true;
+                }).catch(function(err){
+                    console.log(err);
+                });
+                // RESPONSE.sendOkay(res,{success:true});
             }else{
                 RESPONSE.sendOkay(res,{success:false});
             }
@@ -602,6 +624,14 @@ router.post('/cancelOrder',function(req,res) {
         _id:req.body._id,
     };
 
+    let credit;
+    let discount;
+    if(req.body.credit){
+        credit = req.body.credit;
+    }
+    if(req.body.discount){
+        discount = req.body.discount;
+    }
     OrderController.cancelOrder(parameters)
         .then(function (data) {
             if (data) {
@@ -610,7 +640,7 @@ router.post('/cancelOrder',function(req,res) {
                     _id:data.customerId
                 };
 
-                UserController.setCredit(rule,Math.round(Math.round(-1*0.1*data.total)+data.discount)|0)
+                UserController.setCredit(rule,Math.round(Math.round(-1*data.credit)+data.discount)|0)
                     .then(function(data){
                         RESPONSE.sendOkay(res, {success: true,data:data});
                         return true;

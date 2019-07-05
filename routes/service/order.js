@@ -70,7 +70,14 @@ router.post('/newOrder',function(req,res) {
     OrderController.newOrder(parameters)
         .then(function (data) {
             if (data) {
-                RESPONSE.sendOkay(res, {success: true,data:data});
+                UserController.setCredit({_id:req.body.customerId},Math.round(-1 * Math.round(data.discount)|0))
+                    .then(function(data){
+                        RESPONSE.sendOkay(res, {success: true,data:data});
+                        return true;
+                    }).catch(function(err){
+                    console.log(err);
+                })
+                // RESPONSE.sendOkay(res, {success: true,data:data});
                 return true;
             } else {
                 RESPONSE.sendOkay(res, {success: false,data:data});
@@ -81,6 +88,99 @@ router.post('/newOrder',function(req,res) {
 
         });
 });
+
+
+router.post('/verifyDelivery',function (req,res) {
+    let parameters = {
+        _id:req.body._id
+    };
+
+    // if(req.body.pickup_otp){
+    //     parameters.pickup_otp = req.body.pickup_otp;
+    // }
+
+    if(req.body.delivered_otp){
+        parameters.delivered_otp = req.body.delivered_otp;
+    }
+
+    let template = {
+
+    }
+
+    if(req.body.payment_status){
+        template.payment_status = req.body.payment_status;
+    }
+    let discount;
+    let credit;
+    let customerId;
+    if(req.body.discount){
+        discount = req.body.discount;
+    }
+    if(req.body.credit){
+        credit = req.body.credit;
+    }
+    if(req.body.customerId){
+        customerId = req.body.customerId;
+    }
+
+    template.status = "Completed";
+
+
+    OrderController.verifyDelivery(parameters,template)
+        .then(function(data){
+            console.log(data);
+            if(data){
+                UserController.setCredit({_id:customerId},(credit))
+                    .then(function(data){
+                        RESPONSE.sendOkay(res, {success: true,data:data});
+                        return true;
+                    }).catch(function(err){
+                    console.log(err);
+                });
+                // RESPONSE.sendOkay(res,{success:true});
+            }else{
+                RESPONSE.sendOkay(res,{success:false});
+            }
+        })
+
+});
+router.post('/cancelOrder',function(req,res) {
+    let parameters = {
+        _id:req.body._id,
+    };
+
+    let credit;
+    let discount;
+    if(req.body.credit){
+        credit = req.body.credit;
+    }
+    if(req.body.discount){
+        discount = req.body.discount;
+    }
+    OrderController.cancelOrder(parameters)
+        .then(function (data) {
+            if (data) {
+                let rule = {
+                    _id:data.customerId
+                };
+
+                UserController.setCredit(rule,Math.round(Math.round(data.discount)|0))
+                    .then(function(data){
+                        RESPONSE.sendOkay(res, {success: true,data:data});
+                        return true;
+                    }).catch(function(err){
+                    console.log(err);
+                })
+
+            } else {
+                console.log("Some error occured while getting order from the database");
+                return false;
+            }
+
+
+        });
+});
+
 
 router.post('/getOrderById',function(req,res) {
    let parameters = {
@@ -562,99 +662,6 @@ router.post('/verifyPickup',function (req,res) {
            }
        })
 
-});
-
-
-
-router.post('/verifyDelivery',function (req,res) {
-    let parameters = {
-        _id:req.body._id
-    };
-
-    // if(req.body.pickup_otp){
-    //     parameters.pickup_otp = req.body.pickup_otp;
-    // }
-
-    if(req.body.delivered_otp){
-        parameters.delivered_otp = req.body.delivered_otp;
-    }
-
-    let template = {
-
-    }
-
-    if(req.body.payment_status){
-        template.payment_status = req.body.payment_status;
-    }
-    let discount;
-    let credit;
-    let customerId;
-    if(req.body.discount){
-        discount = req.body.discount;
-    }
-    if(req.body.credit){
-        credit = req.body.credit;
-    }
-    if(req.body.customerId){
-        customerId = req.body.customerId;
-    }
-
-    template.status = "Completed";
-
-    OrderController.verifyDelivery(parameters,template)
-        .then(function(data){
-            console.log(data);
-            if(data){
-                UserController.setCredit({_id:customerId},(credit)|0)
-                    .then(function(data){
-                    RESPONSE.sendOkay(res, {success: true,data:data});
-                    return true;
-                }).catch(function(err){
-                    console.log(err);
-                });
-                // RESPONSE.sendOkay(res,{success:true});
-            }else{
-                RESPONSE.sendOkay(res,{success:false});
-            }
-        })
-
-});
-router.post('/cancelOrder',function(req,res) {
-    let parameters = {
-        _id:req.body._id,
-    };
-
-    let credit;
-    let discount;
-    if(req.body.credit){
-        credit = req.body.credit;
-    }
-    if(req.body.discount){
-        discount = req.body.discount;
-    }
-    OrderController.cancelOrder(parameters)
-        .then(function (data) {
-            if (data) {
-                console.log(data.customerId);
-                let rule = {
-                    _id:data.customerId
-                };
-
-                UserController.setCredit(rule,Math.round(Math.round(-1*data.credit)+data.discount)|0)
-                    .then(function(data){
-                        RESPONSE.sendOkay(res, {success: true,data:data});
-                        return true;
-                    }).catch(function(err){
-                        console.log(err);
-                })
-
-            } else {
-                console.log("Some error occured while getting order from the database");
-                return false;
-            }
-
-
-        });
 });
 
 

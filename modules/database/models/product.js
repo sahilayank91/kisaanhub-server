@@ -9,14 +9,15 @@ var ProductSchema = new mongoose.Schema({
     hindiname:{type:String},
     price:{type:String},
     brand:{type:String},
-    type:{type:String, enum:[TYPE.VEGETABLE,TYPE.FRUIT, TYPE.GRAIN], required: true},
+    type:{type:String, enum:[TYPE.VEGETABLE,TYPE.FRUIT, TYPE.GRAIN,TYPE.DEAL], required: true},
     // unit:{type:String,enum:[UNIT.KILOGRAM,UNIT.LITRE], default: UNIT.KILOGRAM},
     unitlist:[{
         price: {type: String},
         quantity:{type:String},
-        unit:{type:String,enum:[UNIT.KILOGRAM,UNIT.LITRE, UNIT.GRAM]}
+        unit:{type:String,enum:[UNIT.KILOGRAM,UNIT.LITRE, UNIT.GRAM, UNIT.UNIT]}
     }
     ],
+    discount:{type:String},
     unit:{type:String},
     imageurl:{type:String},
     twofiftygram:{type:String},

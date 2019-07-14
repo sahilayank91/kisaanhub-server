@@ -17,6 +17,7 @@ let getCreateTemplate = function (parameters) {
             case 'hindiname':
             case 'imageurl':
             case 'outofstock':
+            case 'discount':
                 template[key] = parameters[key];
                 break;
         }

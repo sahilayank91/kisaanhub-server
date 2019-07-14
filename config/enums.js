@@ -11,7 +11,8 @@ module.exports = {
     unit:{
         KILOGRAM:'Kg',
         LITRE:'L',
-        GRAM:'g'
+        GRAM:'g',
+        UNIT:'Unit'
     },
     status:{
       RECEIVED:'Received',
@@ -24,7 +25,8 @@ module.exports = {
     type:{
       VEGETABLE:'Vegetable',
         FRUIT:'Fruit',
-        GRAIN:'Grain'
+        GRAIN:'Grain',
+        DEAL:'Deal'
     },
     gender:{
         MALE:'Male',

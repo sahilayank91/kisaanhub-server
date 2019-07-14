@@ -12,7 +12,8 @@ router.post('/newProduct',function(req,res) {
         hindiname:req.body.hindiname,
         brand:req.body.brand,
         imageurl:req.body.imageurl,
-        outofstock:false
+        outofstock:false,
+        discount:req.body.discount
     };
 
     ProductController.newProduct(parameters)

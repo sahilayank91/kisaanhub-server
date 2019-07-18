@@ -144,7 +144,9 @@ router.post('/updateProduct',function(req,res) {
     if(req.body.outofstock!==undefined){
         template.outofstock = req.body.outofstock;
     }
-
+    if(req.body.discount){
+        template.discount = req.body.discount;
+    }
     console.log(req.body.outofstock);
     template.updated_at = new Date();
 

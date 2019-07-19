@@ -13,9 +13,13 @@ router.post('/newProduct',function(req,res) {
         brand:req.body.brand,
         imageurl:req.body.imageurl,
         outofstock:false,
-        discount:req.body.discount
     };
 
+    if(req.body.discount){
+        parameters.discount = req.body.discount;
+    }else{
+        parameters.discount = 0;
+    }
     ProductController.newProduct(parameters)
         .then(function (data) {
             if (data) {
